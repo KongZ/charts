@@ -1,0 +1,7 @@
+.env
+charts/*/Chart.lock
+charts/*/charts
+charts/*/requirements.lock
+test
+kind*
+local-path-provisioner.yaml
