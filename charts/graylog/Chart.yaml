@@ -21,11 +21,6 @@ dependencies:
     repository: https://charts.helm.sh/stable
     tags:
       - install-elasticsearch
-  # - name: elasticsearch
-  #   version: 6.8.x
-  #   repository: https://helm.elastic.co
-  #   tags:
-  #     - install-elasticsearch
   - name: mongodb
     version: 9.3.1
     repository: https://charts.bitnami.com/bitnami
