@@ -1,7 +1,10 @@
 .env
-charts/*/Chart.lock
-charts/*/charts
-charts/*/requirements.lock
+charts
 test
 kind*
 local-path-provisioner.yaml
+.sass-cache/
+_site/
+.bundle/
+vendor/
+Gemfile.lock

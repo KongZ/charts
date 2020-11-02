@@ -1,1 +1,4 @@
 theme: jekyll-theme-cayman
+name: KongZ Helm Charts
+description: kong-z Helm Repository
+future: true
