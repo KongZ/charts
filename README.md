@@ -1,6 +1,8 @@
 # KongZ helm charts
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![](https://github.com/KongZ/charts/workflows/Release%20Charts/badge.svg?branch=master)](https://github.com/KongZ/charts/actions)
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 ## Usage
 
 [Helm](https://helm.sh) must be installed to use the charts.
