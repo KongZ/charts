@@ -1,17 +1,28 @@
-apiVersion: v1
+apiVersion: v2
 name: graylog
 home: https://www.graylog.org
-version: 1.6.11
-appVersion: 3.1
+version: 1.7.0
+appVersion: 3.3.8
 description: Graylog is the centralized log management solution built to open standards for capturing, storing, and enabling real-time analysis of terabytes of machine data.
 keywords:
-- graylog
-- logs
-- syslog
-- gelf
+  - graylog
+  - logs
+  - syslog
+  - gelf
 icon: https://global-uploads.webflow.com/5a218ef7897bf400019e2f16/5a218ef7897bf400019e2f60_logo-graylog.png
 sources:
-- https://www.graylog.org
+  - https://github.com/KongZ/charts
 maintainers:
-- name: KongZ
-  email: goonohc@gmail.com
+  - name: KongZ
+    email: goonohc@gmail.com
+dependencies:
+  - name: elasticsearch
+    version: 1.32.2
+    repository: https://charts.helm.sh/stable
+    tags:
+      - install-elasticsearch
+  - name: mongodb
+    version: 9.3.1
+    repository: https://charts.bitnami.com/bitnami
+    tags:
+      - install-mongodb

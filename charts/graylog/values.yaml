@@ -44,7 +44,7 @@ graylog:
   ## Make sure you strict with the `x` version of Graylog where `x` is ${version}-${x}
   ##
   image:
-    repository: "graylog/graylog:3.1"
+    repository: "graylog/graylog:3.3.8-1"
     pullPolicy: "IfNotPresent"
 
   ## Number of Graylog instance
@@ -392,8 +392,22 @@ imagePullSecrets: []
 ## Specify Elasticsearch version from requirement dependencies. Ignore this seection if you install Elasticsearch manually.
 ## Note: Graylog 2.4 requires Elasticsearch version <= 5.6
 elasticsearch:
-  image:
-    repository: "docker.elastic.co/elasticsearch/elasticsearch-oss"
-    tag: "6.5.4"
+  repository: "docker.elastic.co/elasticsearch/elasticsearch-oss"
+  tag: "6.8.13"
+  client:
+    replicas: 2
+  master:
+    replicas: 3
+  data:
+    replicas: 2
   cluster:
+    env:
+      MINIMUM_MASTER_NODES: 2
     xpackEnable: false
+
+mongodb:
+  architecture: "replicaset"
+  useStatefulSet: true
+  replicaCount: 1
+  auth:
+    enabled: false
