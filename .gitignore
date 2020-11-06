@@ -1,0 +1,13 @@
+.env
+charts/*/Chart.lock
+charts/*/charts
+charts/*/requirements.lock
+charts/*.tgz
+test
+kind*
+local-path-provisioner.yaml
+_site
+.bundle
+.sass-cache
+vendor
+Gemfile*
