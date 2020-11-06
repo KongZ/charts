@@ -1,0 +1,9 @@
+helm-extra-args: --timeout 1800s
+chart-dirs:
+  - charts
+chart-repos:
+  - bitnami=https://charts.bitnami.com/bitnami
+  - elastic=https://helm.elastic.co
+  - stable=https://charts.helm.sh/stable
+  - kongz=https://charts.kong-z.com
+target-branch: main
