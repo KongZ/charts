@@ -31,7 +31,7 @@ To connect to your Graylog server:
 To send logs to graylog:
 
   NOTE: If `graylog.input` is empty, you cannot send logs from other services. Please make sure the value is not empty.
-        See https://github.com/helm/charts/tree/master/stable/graylog#input for detail
+        See https://github.com/KongZ/charts/tree/main/charts/graylog#input for detail
 
 {{- if .Values.graylog.input.tcp }}
 1. TCP

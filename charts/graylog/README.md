@@ -15,7 +15,7 @@ To install the Graylog Chart with all dependencies
 ```bash
 kubectl create namespace graylog
 
-helm install --namespace "graylog" -n "graylog" stable/graylog
+helm install --namespace "graylog" -n "graylog" kongz/graylog
 ```
 
 ## Manually Install Dependencies
@@ -41,7 +41,7 @@ Note: There are many alternative Elasticsearch available on GitHub. If you found
 To install the Graylog Chart into your Kubernetes cluster (This Chart requires persistent volume by default, you may need to create a storage class before install chart.
 
 ```bash
-helm install --namespace "graylog" -n "graylog" stable/graylog \
+helm install --namespace "graylog" -n "graylog" kongz/graylog \
   --set tags.install-mongodb=false\
   --set tags.install-elasticsearch=false\
   --set graylog.mongodb.uri=mongodb://mongodb-mongodb-replicaset-0.mongodb-mongodb-replicaset.graylog.svc.cluster.local:27017/graylog?replicaSet=rs0 \
@@ -68,7 +68,7 @@ For example:
 Set cluster size to 5
 
 ```bash
-helm install --namespace "graylog" -n "graylog" --set graylog.replicas=5 stable/graylog
+helm install --namespace "graylog" -n "graylog" --set graylog.replicas=5 kongz/graylog
 ```
 
 The command above will install 1 master and 4 coordinating.
