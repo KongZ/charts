@@ -100,7 +100,7 @@ Or use chart dependencies with release name
 {{- else if .Values.graylog.mongodb.uri }}
     {{- .Values.graylog.mongodb.uri -}}
 {{- else }}
-    {{- printf "mongodb://%s-mongodb.%s.svc.cluster.local:27017/graylog?replicaSet=rs0" .Release.Name .Release.Namespace -}}
+    {{- printf "mongodb://%s-headless.%s.svc.cluster.local:27017/graylog?replicaSet=rs0" .Release.Name .Release.Namespace -}}
 {{- end -}}
 {{- end -}}
 
