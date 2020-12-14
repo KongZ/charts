@@ -14,6 +14,9 @@ metadata:
   labels:
 {{ include "graylog.metadataLabels" . | indent 4 }}
     app.kubernetes.io/component: "web"
+{{- if .Values.graylog.ingress.labels }}
+{{ toYaml .Values.graylog.ingress.labels | indent 4 }}
+{{- end }}
   name: {{ template "graylog.fullname" . }}-web
 spec:
   rules:
