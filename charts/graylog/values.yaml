@@ -205,6 +205,12 @@ graylog:
     ## Graylog server Ingress annotations
     ##
     annotations: {}
+
+    ## Graylog server Ingress labels
+    labels: {}
+    # labels:
+    #  traffic-type: public
+
     ## Graylog server Ingress hostnames with optional path
     ## Must be provided if Ingress is enabled
     ## Note: Graylog does not support two URL. You can specify only single URL
