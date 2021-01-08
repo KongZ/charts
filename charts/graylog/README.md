@@ -25,8 +25,10 @@ This method is *recommended* when you want to expand the availability, scalabili
 To install MongoDB, run
 
 ```bash
-helm install --namespace "graylog" -n "mongodb" stable/mongodb-replicaset
+helm install --namespace "graylog" -n "mongodb" bitnami/mongodb
 ```
+
+Note: There are many alternative MongoDB available on [artifacthub.io](https://artifacthub.io/packages/search?page=1&ts_query_web=mongodb). If you found the `bitnami/mongodb` is not suitable, you can use another MongoDB chart. Modify `graylog.mongodb.uri` to match your MongoDB endpoint.
 
 To install Elasticsearch, run
 
@@ -34,7 +36,7 @@ To install Elasticsearch, run
 helm install --namespace "graylog" -n "elasticsearch" stable/elasticsearch
 ```
 
-Note: There are many alternative Elasticsearch available on GitHub. If you found the `stable/elasticsearch` is not suitable, you can search other charts from GitHub repositories.
+Note: There are many alternative Elasticsearch available on [artifacthub.io](https://artifacthub.io/packages/search?page=1&ts_query_web=elasticsearch). If you found the `stable/elasticsearch` is not suitable, you can search other charts from GitHub repositories.
 
 ## Install Chart
 
