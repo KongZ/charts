@@ -44,7 +44,7 @@ graylog:
   ## Make sure you strict with the `x` version of Graylog where `x` is ${version}-${x}
   ##
   image:
-    repository: "graylog/graylog:3.3.8-1"
+    repository: "graylog/graylog:4.0.2-1"
     pullPolicy: "IfNotPresent"
 
   ## Number of Graylog instance
