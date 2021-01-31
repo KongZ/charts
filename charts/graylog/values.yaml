@@ -398,8 +398,9 @@ imagePullSecrets: []
 ## Specify Elasticsearch version from requirement dependencies. Ignore this seection if you install Elasticsearch manually.
 ## Note: Graylog 2.4 requires Elasticsearch version <= 5.6
 elasticsearch:
-  repository: "docker.elastic.co/elasticsearch/elasticsearch-oss"
-  tag: "6.8.13"
+  image:
+    repository: "docker.elastic.co/elasticsearch/elasticsearch-oss"
+    tag: "6.8.13"
   client:
     replicas: 1
   master:
