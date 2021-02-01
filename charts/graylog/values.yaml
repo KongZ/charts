@@ -292,7 +292,7 @@ graylog:
   existingRootSecret: ""
 
   elasticsearch:
-    ## Major version of the Elasticsearch version used. 
+    ## Major version of the Elasticsearch version used.
     ## It is required by Graylog 4. See https://docs.graylog.org/en/4.0/pages/configuration/elasticsearch.html#available-elasticsearch-configuration-tunables
     version: "6"
     ## List of Elasticsearch hosts Graylog should connect to.
