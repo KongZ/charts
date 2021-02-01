@@ -196,9 +196,12 @@ data:
     # Interpolate
     sed 's/"/\\\"/g;s/.*/echo "&"/e' ${GRAYLOG_HOME}/config/graylog.conf > ${GRAYLOG_HOME}/graylog.conf.subst
   {{- end }}
+  {{- if .Values.graylog.elasticsearch.version }}
+    export GRAYLOG_ELASTICSEARCH_VERSION={{ .Values.graylog.elasticsearch.version }}
+  {{- end }}
     echo "Graylog Home ${GRAYLOG_HOME}"
     echo "Graylog Plugin Dir ${GRAYLOG_PLUGIN_DIR}"
-    echo "JVM Options ${GRAYLOG_SERVER_JAVA_OPTS}"
+    echo "Graylog Elasticsearch Version ${GRAYLOG_ELASTICSEARCH_VERSION}"
     "${JAVA_HOME}/bin/java" \
       ${GRAYLOG_SERVER_JAVA_OPTS} \
       -jar \

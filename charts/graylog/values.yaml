@@ -49,7 +49,7 @@ graylog:
 
   ## Number of Graylog instance
   ##
-  replicas: 2
+  replicas: 1
 
   ## Additional environment variables to be added to Graylog pods
   ##
@@ -292,6 +292,9 @@ graylog:
   existingRootSecret: ""
 
   elasticsearch:
+    ## Major version of the Elasticsearch version used. 
+    ## It is required by Graylog 4. See https://docs.graylog.org/en/4.0/pages/configuration/elasticsearch.html#available-elasticsearch-configuration-tunables
+    version: "6"
     ## List of Elasticsearch hosts Graylog should connect to.
     ## Need to be specified as a comma-separated list of valid URIs for the http ports of your elasticsearch nodes.
     ## If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that
