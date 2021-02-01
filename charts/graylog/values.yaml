@@ -44,12 +44,12 @@ graylog:
   ## Make sure you strict with the `x` version of Graylog where `x` is ${version}-${x}
   ##
   image:
-    repository: "graylog/graylog:3.3.8-1"
+    repository: "graylog/graylog:4.0.2-1"
     pullPolicy: "IfNotPresent"
 
   ## Number of Graylog instance
   ##
-  replicas: 2
+  replicas: 1
 
   ## Additional environment variables to be added to Graylog pods
   ##
@@ -292,6 +292,9 @@ graylog:
   existingRootSecret: ""
 
   elasticsearch:
+    ## Major version of the Elasticsearch version used.
+    ## It is required by Graylog 4. See https://docs.graylog.org/en/4.0/pages/configuration/elasticsearch.html#available-elasticsearch-configuration-tunables
+    version: "6"
     ## List of Elasticsearch hosts Graylog should connect to.
     ## Need to be specified as a comma-separated list of valid URIs for the http ports of your elasticsearch nodes.
     ## If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that
@@ -398,8 +401,9 @@ imagePullSecrets: []
 ## Specify Elasticsearch version from requirement dependencies. Ignore this seection if you install Elasticsearch manually.
 ## Note: Graylog 2.4 requires Elasticsearch version <= 5.6
 elasticsearch:
-  repository: "docker.elastic.co/elasticsearch/elasticsearch-oss"
-  tag: "6.8.13"
+  image:
+    repository: "docker.elastic.co/elasticsearch/elasticsearch-oss"
+    tag: "6.8.13"
   client:
     replicas: 1
   master:

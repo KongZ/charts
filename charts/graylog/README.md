@@ -48,6 +48,7 @@ helm install --namespace "graylog" -n "graylog" kongz/graylog \
   --set tags.install-elasticsearch=false\
   --set graylog.mongodb.uri=mongodb://mongodb-mongodb-replicaset-0.mongodb-mongodb-replicaset.graylog.svc.cluster.local:27017/graylog?replicaSet=rs0 \
   --set graylog.elasticsearch.hosts=http://elasticsearch-client.graylog.svc.cluster.local:9200
+  --set graylog.elasticsearch.version=7
 ```
 
 After installation succeeds, you can get a status of Chart
@@ -107,8 +108,8 @@ graylog:
 The following table lists the configurable parameters of the Graylog chart and their default values.
 
 | Parameter                                      | Description                                                                                                                                           | Default                           |
-|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------- |
-| `graylog.image.repository`                     | `graylog` image repository                                                                                                                            | `graylog/graylog:3.1`             |
+|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
+| `graylog.image.repository`                     | `graylog` image repository                                                                                                                            | `graylog/graylog:4.0.2-1`         |
 | `graylog.imagePullPolicy`                      | Image pull policy                                                                                                                                     | `IfNotPresent`                    |
 | `graylog.replicas`                             | The number of Graylog instances in the cluster. The chart will automatic create assign master to one of replicas                                      | `2`                               |
 | `graylog.resources`                            | CPU/Memory resource requests/limits                                                                                                                   | Memory: `1024Mi`, CPU: `500m`     |
@@ -155,6 +156,7 @@ The following table lists the configurable parameters of the Graylog chart and t
 | `graylog.rootEmail`                            | Graylog root email.                                                                                                                                   |                                   |
 | `graylog.existingRootSecret`                   | Graylog existing root secret                                                                                                                          |                                   |
 | `graylog.rootTimezone`                         | Graylog root timezone.                                                                                                                                | `UTC`                             |
+| `graylog.elasticsearch.version`                | Graylog Elasticsearch version. You need to specify a value 6 or 7. It is required for Graylog >4.0.2                                                  | `6`                               |
 | `graylog.elasticsearch.hosts`                  | Graylog Elasticsearch host name. You need to specific where data will be stored.                                                                      |                                   |
 | `graylog.elasticsearch.uriSecretName`          | K8s secret name where elasticsearch hosts will be set from.                                                                                           | `{{ graylog.fullname }}-es`       |
 | `graylog.elasticsearch.uriSecretKey`           | K8s secret key name where elasticsearch hosts will be set from.                                                                                       |                                   |
@@ -178,7 +180,7 @@ The following table lists the configurable parameters of the Graylog chart and t
 | `graylog.journal.deleteBeforeStart`            | Delete all journal files before start Graylog                                                                                                         | `false`                           |
 | `graylog.init.resources`                       | Configure resource requests and limits for the Graylog StatefulSet initContainer                                                                      | `{}`                              |
 | `graylog.provisioner.enabled`                  | Enable optional Job to run an arbitrary Bash script                                                                                                   | `false`                           |
-| `graylog.provisioner.annotations`              | Graylog provisioner Job annotations                                                                                                                    | `{}`                              |
+| `graylog.provisioner.annotations`              | Graylog provisioner Job annotations                                                                                                                   | `{}`                              |
 | `graylog.provisioner.useGraylogServiceAccount` | Use the same ServiceAccount used by Graylog pod                                                                                                       | `false`                           |
 | `graylog.provisioner.script`                   | The contents of the provisioner Bash script                                                                                                           |                                   |
 | `graylog.sidecarContainers`                    | Sidecar containers to run in the server statefulset                                                                                                   | `[]`                              |
