@@ -47,8 +47,8 @@ spec:
       {{- end }}
       initContainers:
         - name: "setup"
-          image: "alpine"
-          imagePullPolicy: "IfNotPresent"
+          image: {{ .Values.graylog.init.image.repository | default "alpine" }}
+          imagePullPolicy: {{ .Values.graylog.init.image.pullPolicy | default "IfNotPresent" }}
           # Graylog journal will recursive in every subdirectories. Any invalid format directories will cause errors
           command:
             - /bin/sh

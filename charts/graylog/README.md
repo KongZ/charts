@@ -108,7 +108,7 @@ graylog:
 The following table lists the configurable parameters of the Graylog chart and their default values.
 
 | Parameter                                      | Description                                                                                                                                           | Default                           |
-|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
 | `graylog.image.repository`                     | `graylog` image repository                                                                                                                            | `graylog/graylog:4.0.2-1`         |
 | `graylog.imagePullPolicy`                      | Image pull policy                                                                                                                                     | `IfNotPresent`                    |
 | `graylog.replicas`                             | The number of Graylog instances in the cluster. The chart will automatic create assign master to one of replicas                                      | `2`                               |
@@ -178,6 +178,9 @@ The following table lists the configurable parameters of the Graylog chart and t
 | `graylog.serverFiles`                          | Add additional server files on /etc/graylog/server. This is useful for enable TLS on input                                                            | `{}`                              |
 | `graylog.logInJson`                            | If true, Graylog pods will be configured to log in JSON (one event per line                                                                           | `false`                           |
 | `graylog.journal.deleteBeforeStart`            | Delete all journal files before start Graylog                                                                                                         | `false`                           |
+| `graylog.init.image.repository`                | Configure init container image                                                                                                                        | `alpine`                          |
+| `graylog.init.image.pullPolicy`                | Configure init container image pull policy                                                                                                            | `{}`                              |
+| `graylog.init.env`                             | Additional environment variables to be added to Graylog initContainer                                                                                 | `{}`                              |
 | `graylog.init.resources`                       | Configure resource requests and limits for the Graylog StatefulSet initContainer                                                                      | `{}`                              |
 | `graylog.provisioner.enabled`                  | Enable optional Job to run an arbitrary Bash script                                                                                                   | `false`                           |
 | `graylog.provisioner.annotations`              | Graylog provisioner Job annotations                                                                                                                   | `{}`                              |
@@ -282,7 +285,7 @@ The certificates will be mounted into the `/etc/graylog/server`, so Inputs (e.g.
 those certificates with the following Input API configuration:
 
 | Parameter      | Value                           |
-|----------------|---------------------------------|
+| -------------- | ------------------------------- |
 | tls_cert_file: | /etc/graylog/server/server.cert |
 | tls_enable:    | true                            |
 | tls_key_file:  | /etc/graylog/server/server.key  |
