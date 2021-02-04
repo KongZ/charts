@@ -61,7 +61,7 @@ key: value
 ```
 
 ```
-helm install my-release {{ .GitHubOrg }}/name-of-chart --version version --values values.yaml
+helm install my-release kong-z/name-of-chart --version version --values values.yaml
 ```
 
 -->
