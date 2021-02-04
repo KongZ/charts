@@ -379,7 +379,7 @@ graylog:
     kubectlLocation: ""
     ## Set kubectl command version to download from https://storage.googleapis.com/kubernetes-release/. If the value is not set, default value is .Capabilities.KubeVersion.Version
     ##
-    kubectlVersion: "v1.20"
+    # kubectlVersion: "v1.20"
 
     # Additional environment variables to be added to Graylog initContainer
     env: {}
