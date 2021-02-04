@@ -60,8 +60,11 @@ spec:
               rm -rf /usr/share/graylog/data/journal/messagejournal-0
               rm -rf /usr/share/graylog/data/journal/recovery-point-offset-checkpoint
             {{- end }}
-              nslookup storage.googleapis.com
-              wget https://storage.googleapis.com/kubernetes-release/release/{{ .Values.graylog.init.kubeVersion | default .Capabilities.KubeVersion.Version }}/bin/linux/amd64/kubectl -O /k8s/kubectl
+              {{- if .Values.graylog.init.kubectlLocation }}
+              wget {{ .Values.graylog.init.kubectlLocation }} -O /k8s/kubectl
+              {{- else }}
+              wget https://storage.googleapis.com/kubernetes-release/release/{{ .Values.graylog.init.kubectlVersion | default .Capabilities.KubeVersion.Version }}/bin/linux/amd64/kubectl -O /k8s/kubectl
+              {{- end }}
               chmod +x /k8s/kubectl
 
               GRAYLOG_HOME=/usr/share/graylog
