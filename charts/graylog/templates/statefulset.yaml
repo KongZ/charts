@@ -47,7 +47,7 @@ spec:
       {{- end }}
       initContainers:
         - name: "setup"
-          image: {{ .Values.graylog.init.image.repository | default "alpine" }}
+          image: {{ .Values.graylog.init.image.repository | default "busybox" }}
           imagePullPolicy: {{ .Values.graylog.init.image.pullPolicy | default "IfNotPresent" }}
           # Graylog journal will recursive in every subdirectories. Any invalid format directories will cause errors
           command:
@@ -77,8 +77,8 @@ spec:
           volumeMounts:
             - name: journal
               mountPath: /usr/share/graylog/data/journal
-            - mountPath: /k8s
-              name: kubectl
+            - name: kubectl
+              mountPath: /k8s
 {{- if .Values.graylog.init.resources }}
           resources:
 {{ toYaml .Values.graylog.init.resources | indent 12 }}
@@ -242,9 +242,9 @@ spec:
         {{- end }}
         - name: kubectl
           emptyDir: {}
-{{- if .Values.graylog.extraVolumes }}
-{{ toYaml .Values.graylog.extraVolumes | indent 8 }}
-{{- end }}
+        {{- if .Values.graylog.extraVolumes }}
+        {{ toYaml .Values.graylog.extraVolumes | nindent 8 }}
+        {{- end }}
 {{- if not .Values.graylog.persistence.enabled }}
         - name: journal
           emptyDir: {}

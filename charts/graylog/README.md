@@ -108,7 +108,7 @@ graylog:
 The following table lists the configurable parameters of the Graylog chart and their default values.
 
 | Parameter                                      | Description                                                                                                                                           | Default                           |
-| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
 | `graylog.image.repository`                     | `graylog` image repository                                                                                                                            | `graylog/graylog:4.0.2-1`         |
 | `graylog.imagePullPolicy`                      | Image pull policy                                                                                                                                     | `IfNotPresent`                    |
 | `graylog.replicas`                             | The number of Graylog instances in the cluster. The chart will automatic create assign master to one of replicas                                      | `2`                               |
@@ -178,7 +178,7 @@ The following table lists the configurable parameters of the Graylog chart and t
 | `graylog.serverFiles`                          | Add additional server files on /etc/graylog/server. This is useful for enable TLS on input                                                            | `{}`                              |
 | `graylog.logInJson`                            | If true, Graylog pods will be configured to log in JSON (one event per line                                                                           | `false`                           |
 | `graylog.journal.deleteBeforeStart`            | Delete all journal files before start Graylog                                                                                                         | `false`                           |
-| `graylog.init.image.repository`                | Configure init container image                                                                                                                        | `alpine`                          |
+| `graylog.init.image.repository`                | Configure init container image                                                                                                                        | `busybox`                         |
 | `graylog.init.image.pullPolicy`                | Configure init container image pull policy                                                                                                            | `{}`                              |
 | `graylog.init.kubectlLocation`                 | Set kubectl location to download and use on init-container.                                                                                           |                                   |
 | `graylog.init.kubectlVersion`                  | Set kubectl command version to download. If the value is not set, default value is .Capabilities.KubeVersion.Version                                  |                                   |
@@ -289,7 +289,7 @@ The certificates will be mounted into the `/etc/graylog/server`, so Inputs (e.g.
 those certificates with the following Input API configuration:
 
 | Parameter      | Value                           |
-| -------------- | ------------------------------- |
+|----------------|---------------------------------|
 | tls_cert_file: | /etc/graylog/server/server.cert |
 | tls_enable:    | true                            |
 | tls_key_file:  | /etc/graylog/server/server.key  |
