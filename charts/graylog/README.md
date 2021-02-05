@@ -108,7 +108,7 @@ graylog:
 The following table lists the configurable parameters of the Graylog chart and their default values.
 
 | Parameter                                      | Description                                                                                                                                           | Default                           |
-|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
+| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
 | `graylog.image.repository`                     | `graylog` image repository                                                                                                                            | `graylog/graylog:4.0.2-1`         |
 | `graylog.imagePullPolicy`                      | Image pull policy                                                                                                                                     | `IfNotPresent`                    |
 | `graylog.replicas`                             | The number of Graylog instances in the cluster. The chart will automatic create assign master to one of replicas                                      | `2`                               |
@@ -289,7 +289,7 @@ The certificates will be mounted into the `/etc/graylog/server`, so Inputs (e.g.
 those certificates with the following Input API configuration:
 
 | Parameter      | Value                           |
-|----------------|---------------------------------|
+| -------------- | ------------------------------- |
 | tls_cert_file: | /etc/graylog/server/server.cert |
 | tls_enable:    | true                            |
 | tls_key_file:  | /etc/graylog/server/server.key  |
