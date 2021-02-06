@@ -178,7 +178,7 @@ data:
     curlreturn=$?
     if [[ $curlreturn -eq 0 ]]; then
       echo "Extracting {{ .name }} ..."
-      tar xvzf /tmp/{{ .name }} -C ${GRAYLOG_HOME} --strip-components 1 && chown -R graylog:graylog ${GRAYLOG_PLUGIN_DIR}
+      tar xvzf /tmp/{{ .name }} -C ${GRAYLOG_HOME} --strip-components 1 && chown -R graylog:graylog ${GRAYLOG_HOME}/bin ${GRAYLOG_PLUGIN_DIR}
       rm -f /tmp/{{ .name }}
     fi
     {{- else }}
