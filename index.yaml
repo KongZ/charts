@@ -3,6 +3,40 @@ entries:
   graylog:
   - apiVersion: v2
     appVersion: 4.0.2
+    created: "2021-02-06T15:20:11.687587056Z"
+    dependencies:
+    - name: elasticsearch
+      repository: https://charts.helm.sh/stable
+      tags:
+      - install-elasticsearch
+      version: 1.32.2
+    - name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - install-mongodb
+      version: 9.3.1
+    description: Graylog is the centralized log management solution built to open
+      standards for capturing, storing, and enabling real-time analysis of terabytes
+      of machine data.
+    digest: 94f9119081ea8150cb4b6080088d372885eff11cbb405e0297654d22f7b8b35d
+    home: https://www.graylog.org
+    icon: https://global-uploads.webflow.com/5a218ef7897bf400019e2f16/5a218ef7897bf400019e2f60_logo-graylog.png
+    keywords:
+    - graylog
+    - logs
+    - syslog
+    - gelf
+    maintainers:
+    - email: goonohc@gmail.com
+      name: KongZ
+    name: graylog
+    sources:
+    - https://github.com/KongZ/charts
+    urls:
+    - https://github.com/KongZ/charts/releases/download/graylog-1.7.7/graylog-1.7.7.tgz
+    version: 1.7.7
+  - apiVersion: v2
+    appVersion: 4.0.2
     created: "2021-02-05T14:34:48.661188183Z"
     dependencies:
     - name: elasticsearch
