@@ -173,7 +173,17 @@ data:
     echo "Downloading Graylog Plugins..."
   {{- range .Values.graylog.plugins }}
     echo "Downloading {{ .url }} ..."
+    {{- if or (hasSuffix ".tgz" .url) (hasSuffix ".gz" .url) }}
+    curl -s --location --retry 3 -o /tmp/{{ .name }} "{{ .url }}"
+    curlreturn=$?
+    if [[ $curlreturn -eq 0 ]]; then
+      echo "Extracting {{ .name }} ..."
+      tar xvzf /tmp/{{ .name }} -C ${GRAYLOG_HOME} --strip-components 1 && chown -R graylog:graylog ${GRAYLOG_HOME}/bin ${GRAYLOG_PLUGIN_DIR}
+      rm -f /tmp/{{ .name }}
+    fi
+    {{- else }}
     curl -s --location --retry 3 -o ${GRAYLOG_PLUGIN_DIR}/{{ .name }} "{{ .url }}"
+    {{- end }}
   {{- end }}
   {{- end }}
   {{- if .Values.graylog.metrics.enabled }}
