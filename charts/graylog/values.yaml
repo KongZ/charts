@@ -183,6 +183,7 @@ graylog:
   input: {}
     # tcp:
     #   service:
+    #     name: your-tcp-service-name
     #     type: LoadBalancer
     #     loadBalancerIP:
     #   ports:
@@ -190,6 +191,7 @@ graylog:
     #       port: 12222
     # udp:
     #   service:
+    #     name: your-udp-service-name
     #     type: ClusterIP
     #   ports:
     #     - name: syslog

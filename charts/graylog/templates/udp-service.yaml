@@ -6,7 +6,11 @@ metadata:
   annotations:
 {{ toYaml .Values.graylog.input.udp.service.annotations | indent 4 }}
 {{- end }}
+  {{- if .Values.graylog.input.udp.service.name }}
+  name: {{ .Values.graylog.input.udp.service.name }}
+  {{- else }}
   name: {{ template "graylog.fullname" . }}-udp
+  {{- end }}
   labels:
 {{ include "graylog.metadataLabels" . | indent 4 }}
     app.kubernetes.io/component: "UDP"
