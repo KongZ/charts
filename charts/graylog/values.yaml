@@ -212,6 +212,9 @@ graylog:
   ##
   externalUri: ""
 
+  ## External URL is https ?
+  externalUriTLS: false
+
   ingress:
     ## If true, Graylog server Ingress will be created
     ##
