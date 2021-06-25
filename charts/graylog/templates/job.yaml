@@ -32,8 +32,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.graylog.existingRootSecret | default (include "graylog.fullname" .) }}
-
-                key: graylog-password-secret
+                key: graylog-password-raw
         volumeMounts:
           - name: configmap
             mountPath: /configmap
