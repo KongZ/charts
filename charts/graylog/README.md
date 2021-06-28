@@ -204,6 +204,8 @@ The following table lists the configurable parameters of the Graylog chart and t
 | `tags.install-mongodb`                         | If true, this chart will install MongoDB from requirement dependencies. If you want to install MongoDB by yourself, please set to `false`             | `true`                            |
 | `tags.install-elasticsearch`                   | If true, this chart will install Elasticsearch from requirement dependencies. If you want to install Elasticsearch by yourself, please set to `false` | `true`                            |
 | `imagePullSecrets`                             | Configuration for [imagePullSecrets][3] so that you can use a private registry for your images                                                        | `[]`                              |
+| `graylog.options.allowHighlighting`            | If true, enable [search result highlighting][6].                                                                                                      | `false`                           |
+| `graylog.options.allowLeadingWildcardSearches` | if true, allow searches with leading wildcards. This can be extremely resource hungry and should only be enabled with care.                           | `false`                           |
 
 ## How it works
 
@@ -338,3 +340,4 @@ Note: All uncommitted logs will be permanently DELETED when this value is true
 [3]: https://kubernetes.io/docs/tasks/configure-pod-container/pull-image-private-registry/#create-a-pod-that-uses-your-secret
 [4]: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/
 [5]: https://kubernetes.io/docs/tasks/access-application-cluster/create-external-load-balancer/#preserving-the-client-source-ip
+[6]: https://docs.graylog.org/en/4.0/pages/searching/result_highlighting.html
