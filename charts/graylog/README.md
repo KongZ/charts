@@ -204,6 +204,8 @@ The following table lists the configurable parameters of the Graylog chart and t
 | `tags.install-mongodb`                         | If true, this chart will install MongoDB from requirement dependencies. If you want to install MongoDB by yourself, please set to `false`             | `true`                            |
 | `tags.install-elasticsearch`                   | If true, this chart will install Elasticsearch from requirement dependencies. If you want to install Elasticsearch by yourself, please set to `false` | `true`                            |
 | `imagePullSecrets`                             | Configuration for [imagePullSecrets][3] so that you can use a private registry for your images                                                        | `[]`                              |
+| `graylog.options.allowHighlighting`            | If true, enable [https://docs.graylog.org/en/4.0/pages/searching/result_highlighting.html](search result highlighting.)                               | `false`                           |
+| `graylog.options.allowLeadingWildcardSearches` | if true, allow searches with leading wildcards. This can be extremely resource hungry and should only be enabled with care.                           | `false`                           |
 
 ## How it works
 
