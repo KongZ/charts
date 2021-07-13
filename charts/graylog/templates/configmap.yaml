@@ -114,6 +114,7 @@ data:
     message_journal_enabled = true
     # Do not change `message_journal_dir` location
     message_journal_dir = /usr/share/graylog/data/journal
+    message_journal_max_size = {{ .Values.graylog.journal.maxSize }}
     lb_recognition_period_seconds = 3
     # Use a replica set instead of a single host
     mongodb_uri = {{ template "graylog.mongodb.uri" . }}
