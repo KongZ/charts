@@ -97,6 +97,10 @@ graylog:
   ##
   nodeSelector: {}
 
+  ## Labels to be added to Graylog pods
+  ##
+  podLabels: {}
+  
   ## Annotations to be added to Graylog pods
   ##
   podAnnotations: {}
