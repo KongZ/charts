@@ -65,6 +65,10 @@ graylog:
   ##
   env: {}
 
+  ## Additional labels to be added to Graylog pods
+  ##
+  customLabels: {}
+
   ## Additional environment variables in raw yaml format
   ## - name: POD_IP
   ##   valueFrom:
