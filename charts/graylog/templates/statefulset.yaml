@@ -4,6 +4,9 @@ metadata:
   name: {{ template "graylog.fullname" . }}
   labels:
 {{ include "graylog.metadataLabels" . | indent 4 }}
+{{- with .Values.graylog.customLabels }}
+{{ . | toYaml | indent 4 }}
+{{- end }}
 spec:
   serviceName: {{ template "graylog.service.headless.name" . }}
   replicas: {{ .Values.graylog.replicas }}
@@ -16,6 +19,9 @@ spec:
     metadata:
       labels:
 {{ include "graylog.metadataLabels" . | indent 8 }}
+{{- with .Values.graylog.customLabels }}
+{{ . | toYaml | indent 8 }}
+{{- end }}
       annotations:
       {{- if .Values.graylog.podAnnotations }}
       {{- range $key, $value := .Values.graylog.podAnnotations }}
