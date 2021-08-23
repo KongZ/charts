@@ -222,7 +222,7 @@ graylog:
   ingress:
     ## If true, Graylog server Ingress will be created
     ##
-    enabled: true
+    enabled: false
     ## Graylog server Ingress annotations
     ##
     annotations: {}
@@ -237,7 +237,7 @@ graylog:
     ## Note: Graylog does not support two URL. You can specify only single URL
     ##
     hosts:
-      - graylog.yourdomain.com
+    # - graylog.yourdomain.com
 
     ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
     extraPaths: []
