@@ -1,9 +1,11 @@
 {{- if .Values.graylog.ingress.enabled -}}
 {{- $extraPaths := .Values.graylog.ingress.extraPaths -}}
-{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+{{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1/IngressClass" }}
+apiVersion: networking.k8s.io/v1
+{{- else if .Capabilities.APIVersions.Has "networking.k8s.io/v1beta1/IngressClass" }}
 apiVersion: networking.k8s.io/v1beta1
-{{- else -}}
-apiVersion: extensions/v1beta1
+{{- else }}
+{{- fail "\n\n ERROR: You must have atleast networking.k8s.io/v1beta1 to use ingressClass" }}
 {{- end }}
 kind: Ingress
 metadata:
