@@ -33,9 +33,7 @@ spec:
                 name: {{ template "graylog.fullname" $ }}-web
                 port:
                   name: graylog
-            {{- if $.Values.graylog.ingress.path }}
-            path: {{ $.Values.graylog.ingress.path }}
-            {{- end }}
+            path: {{ default $.Values.graylog.ingress.path "/" }}
             pathType: {{ default $.Values.graylog.ingress.pathType "Prefix" }}
           {{- else }}
           - backend:
