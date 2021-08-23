@@ -2,10 +2,8 @@
 {{- $extraPaths := .Values.graylog.ingress.extraPaths -}}
 {{- if .Capabilities.APIVersions.Has "networking.k8s.io/v1/IngressClass" }}
 apiVersion: networking.k8s.io/v1
-{{- else if .Capabilities.APIVersions.Has "networking.k8s.io/v1beta1/IngressClass" }}
-apiVersion: networking.k8s.io/v1beta1
 {{- else }}
-{{- fail "\n\n ERROR: You must have atleast networking.k8s.io/v1beta1 to use ingressClass" }}
+apiVersion: networking.k8s.io/v1beta1
 {{- end }}
 kind: Ingress
 metadata:
@@ -34,6 +32,9 @@ spec:
               servicePort: graylog
             {{- if $.Values.graylog.ingress.path }}
             path: {{ $.Values.graylog.ingress.path }}
+            {{- end -}}
+            {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/IngressClass" }}
+            pathType: {{ default $.Values.graylog.ingress.pathType "Prefix" }}
             {{- end -}}
   {{- end -}}
   {{- if .Values.graylog.ingress.tls }}
