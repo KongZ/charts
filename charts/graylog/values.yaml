@@ -236,8 +236,8 @@ graylog:
     ## Must be provided if Ingress is enabled
     ## Note: Graylog does not support two URL. You can specify only single URL
     ##
-    hosts: []
-    #   - graylog.yourdomain.com
+    hosts:
+    #  - graylog.yourdomain.com
 
     ## Extra paths to prepend to every host configuration. This is useful when working with annotation based services.
     extraPaths: []
@@ -254,6 +254,12 @@ graylog:
     #     hosts:
     #       - graylog.yourdomain.com
 
+    ## For Kubernetes 1.18 or later. Use Prefix or Exact path types.
+    ## See https://kubernetes.io/docs/concepts/services-networking/ingress/#path-types
+    pathType: Prefix
+
+    ## An URL path
+    path: /
 
   ## Configure resource requests and limits
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
