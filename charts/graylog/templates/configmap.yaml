@@ -188,8 +188,14 @@ data:
   {{- end }}
   {{- end }}
   {{- if .Values.graylog.metrics.enabled }}
+    {{- if .Values.graylog.metrics.proxy_enabled }}
+    export https_proxy={{ .Values.graylog.metrics.proxy_host }}
+    {{- end }}
     echo "Downloading https://github.com/graylog-labs/graylog-plugin-metrics-reporter/releases/download/3.0.0/metrics-reporter-prometheus-3.0.0.jar ..."
     curl -s --location --retry 3 -o ${GRAYLOG_PLUGIN_DIR}/metrics-reporter-prometheus-3.0.0.jar "https://github.com/graylog-labs/graylog-plugin-metrics-reporter/releases/download/3.0.0/metrics-reporter-prometheus-3.0.0.jar"
+    {{- if .Values.graylog.metrics.proxy_enabled }}
+    unset https_proxy
+    {{- end }}
   {{- end }}
   {{- if .Values.graylog.geoip.enabled }}
     echo "Downloading Maxmind GeoLite2 ..."
