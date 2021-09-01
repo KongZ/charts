@@ -129,7 +129,14 @@ graylog:
 
   ## Additional plugins you need to install on Graylog.
   ##
-  plugins: []
+  plugins:
+    ## If true, set proxy server to retrieve the plugins
+    ##
+    proxy:
+      enabled: false
+      host: http://your.proxy.host:8080
+
+    locations: []
     # - name: graylog-plugin-slack-notification-4.1.1.jar
     #   url: https://github.com/KongZ/graylog-plugin-slack-notification/releases/download/v4.1.1/graylog-plugin-slack-notification-4.1.1.jar
     # - name: graylog-plugin-function-check-diff-1.0.1.jar
@@ -288,10 +295,6 @@ graylog:
     ## If true, prometheus annotations will be attached
     ##
     enabled: false
-    ## If true, set proxy server to retrieve prometheus metrics plugin
-    ##
-    proxy_enabled: false
-    proxy_host: http://your.proxy.host:8080
 
   geoip:
     ## If true, Maxmind GeoLite2 will be installed to ${GRAYLOG_HOME}/geoip location
