@@ -27,7 +27,7 @@ spec:
           {{ if $extraPaths }}
 {{ toYaml $extraPaths | indent 10 }}
           {{- end }}
-          {{- if $ }}
+          {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/IngressClass" }}
           - backend:
               service:
                 name: {{ template "graylog.fullname" $ }}-web
