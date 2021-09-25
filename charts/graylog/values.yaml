@@ -186,6 +186,9 @@ graylog:
       ## Graylog master service port.
       ##
       port: 9000
+      ## Graylog master service type.
+      ##
+      type: ClusterIP
 
   ## Additional input ports for receiving logs from servers
   ## Note: Name must be in IANA_SVC_NAME (at most 15 characters, matching regex [a-z0-9]([a-z0-9-]*[a-z0-9])* and it must contains at least one letter [a-z], hyphens cannot be adjacent to other hyphens)
