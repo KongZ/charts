@@ -51,6 +51,9 @@ spec:
       imagePullSecrets:
 {{ toYaml .Values.imagePullSecrets | indent 8 }}
       {{- end }}
+{{- if .Values.graylog.priorityClassName }}
+      priorityClassName: {{ .Values.graylog.priorityClassName }}
+{{- end }}
       initContainers:
         - name: "setup"
           image: {{ .Values.graylog.init.image.repository | default "busybox" }}

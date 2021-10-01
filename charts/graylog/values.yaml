@@ -105,6 +105,10 @@ graylog:
   ##
   podAnnotations: {}
 
+  ## If specified, indicates the pod's priority.
+  ##
+  # priorityClassName:
+
   persistence:
     ## If true, Graylog will create/use a Persistent Volume Claim
     ## If false, use emptyDir
