@@ -78,10 +78,6 @@ graylog:
   ##   value: servicename
   envRaw: {}
 
-  ## Run as privileged container
-  ##
-  privileged: false
-
   ## Pod affinity
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   ##
@@ -108,6 +104,25 @@ graylog:
   ## If specified, indicates the pod's priority.
   ##
   # priorityClassName:
+
+  ## Set security context for defining privilege and accessing control settings entire Pod
+  ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  ##
+  podSecurityContext: {}
+    # runAsUser: 10001
+    # fsGroup: 65534
+
+  ## Set security context for defining privilege and accessing control settings for Graylog container
+  ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  ##
+  securityContext:
+    privileged: false
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 
   persistence:
     ## If true, Graylog will create/use a Persistent Volume Claim
