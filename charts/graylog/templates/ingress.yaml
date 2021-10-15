@@ -33,8 +33,8 @@ spec:
                 name: {{ template "graylog.fullname" $ }}-web
                 port:
                   name: graylog
-            path: {{ default $.Values.graylog.ingress.path "/" }}
-            pathType: {{ default $.Values.graylog.ingress.pathType "Prefix" }}
+            path: {{ default "/" $.Values.graylog.ingress.path }}
+            pathType: {{ default "Prefix" $.Values.graylog.ingress.pathType }}
           {{- else }}
           - backend:
               serviceName: {{ template "graylog.fullname" $ }}-web
