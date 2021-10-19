@@ -137,6 +137,10 @@ data:
     content_packs_dir = /usr/share/graylog/data/contentpacks
     content_packs_auto_load = grok-patterns.json
     proxied_requests_thread_pool_size = 32
+  {{- if .Values.graylog.metrics.enabled }}
+    prometheus_exporter_enabled = true
+  {{- end }}
+
   {{- if .Values.graylog.config }}
 {{ .Values.graylog.config | indent 4 }}
   {{- end }}
@@ -191,10 +195,6 @@ data:
     curl -s --location --retry 3 -o ${GRAYLOG_PLUGIN_DIR}/{{ .name }} "{{ .url }}"
     {{- end }}
   {{- end }}
-  {{- end }}
-  {{- if .Values.graylog.metrics.enabled }}
-    echo "Downloading https://github.com/graylog-labs/graylog-plugin-metrics-reporter/releases/download/3.0.0/metrics-reporter-prometheus-3.0.0.jar ..."
-    curl -s --location --retry 3 -o ${GRAYLOG_PLUGIN_DIR}/metrics-reporter-prometheus-3.0.0.jar "https://github.com/graylog-labs/graylog-plugin-metrics-reporter/releases/download/3.0.0/metrics-reporter-prometheus-3.0.0.jar"
   {{- end }}
   {{- if .Values.graylog.geoip.enabled }}
     echo "Downloading Maxmind GeoLite2 ..."
