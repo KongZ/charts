@@ -78,10 +78,6 @@ graylog:
   ##   value: servicename
   envRaw: {}
 
-  ## Run as privileged container
-  ##
-  privileged: false
-
   ## Pod affinity
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
   ##
@@ -104,6 +100,29 @@ graylog:
   ## Annotations to be added to Graylog pods
   ##
   podAnnotations: {}
+
+  ## If specified, indicates the pod's priority.
+  ##
+  # priorityClassName:
+
+  ## Set security context for defining privilege and accessing control settings entire Pod
+  ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  ##
+  podSecurityContext: {}
+    # runAsUser: 10001
+    # fsGroup: 65534
+
+  ## Set security context for defining privilege and accessing control settings for Graylog container
+  ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
+  ##
+  securityContext:
+    privileged: false
+    # capabilities:
+    #   drop:
+    #   - ALL
+    # readOnlyRootFilesystem: true
+    # runAsNonRoot: true
+    # runAsUser: 1000
 
   persistence:
     ## If true, Graylog will create/use a Persistent Volume Claim
@@ -186,6 +205,9 @@ graylog:
       ## Graylog master service port.
       ##
       port: 9000
+      ## Graylog master service type.
+      ##
+      type: ClusterIP
 
   ## Additional input ports for receiving logs from servers
   ## Note: Name must be in IANA_SVC_NAME (at most 15 characters, matching regex [a-z0-9]([a-z0-9-]*[a-z0-9])* and it must contains at least one letter [a-z], hyphens cannot be adjacent to other hyphens)
