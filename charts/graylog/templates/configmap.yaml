@@ -139,6 +139,7 @@ data:
     proxied_requests_thread_pool_size = 32
   {{- if .Values.graylog.metrics.enabled }}
     prometheus_exporter_enabled = true
+    prometheus_exporter_bind_address = 0.0.0.0:9833
   {{- end }}
 
   {{- if .Values.graylog.config }}
