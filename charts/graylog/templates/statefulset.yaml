@@ -52,6 +52,11 @@ spec:
       imagePullSecrets:
 {{ toYaml .Values.imagePullSecrets | indent 8 }}
       {{- end }}
+{{- if .Values.graylog.priorityClassName }}
+      priorityClassName: {{ .Values.graylog.priorityClassName }}
+{{- end }}
+      securityContext:
+        {{- toYaml .Values.graylog.podSecurityContext | nindent 8 }}
       initContainers:
         - name: "setup"
           image: {{ .Values.graylog.init.image.repository | default "busybox" }}
@@ -141,7 +146,7 @@ spec:
             {{- end }}
             {{- end }}
           securityContext:
-            privileged: {{ .Values.graylog.privileged }}
+            {{- toYaml .Values.graylog.securityContext | nindent 12 }}
           ports:
             - containerPort: 9000
               name: graylog

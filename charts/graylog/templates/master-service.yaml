@@ -20,18 +20,18 @@ spec:
 {{- end }}
       protocol: TCP
       targetPort: 9000
-{{- if eq "NodePort" .Values.graylog.service.type }}
-  {{- if .Values.graylog.service.nodePort }}
-      nodePort:  {{ .Values.graylog.service.nodePort }}
+{{- if eq "NodePort" .Values.graylog.service.master.type }}
+  {{- if .Values.graylog.service.master.nodePort }}
+      nodePort:  {{ .Values.graylog.service.master.nodePort }}
   {{- end }}
 {{- end }}
-{{- if .Values.graylog.service.externalIPs }}
+{{- if .Values.graylog.service.master.externalIPs }}
   externalIPs:
-{{ toYaml .Values.graylog.service.externalIPs | indent 4 }}
+{{ toYaml .Values.graylog.service.master.externalIPs | indent 4 }}
 {{- end }}
-{{- if eq "ClusterIP" .Values.graylog.service.type }}
-  {{- if .Values.graylog.service.clusterIP }}
-  clusterIP:  {{ .Values.graylog.service.clusterIP }}
+{{- if eq "ClusterIP" .Values.graylog.service.master.type }}
+  {{- if .Values.graylog.service.master.clusterIP }}
+  clusterIP:  {{ .Values.graylog.service.master.clusterIP }}
   {{- end }}
 {{- end }}
   selector:
@@ -39,13 +39,13 @@ spec:
     app.kubernetes.io/instance: "{{ .Release.Name }}"
     graylog-role: "master"
   type: "{{ .Values.graylog.service.type }}"
-{{- if eq "LoadBalancer" .Values.graylog.service.type }}
-  {{- if .Values.graylog.service.loadBalancerIP }}
-  loadBalancerIP: {{ .Values.graylog.service.loadBalancerIP }}
+{{- if eq "LoadBalancer" .Values.graylog.service.master.type }}
+  {{- if .Values.graylog.service.master.loadBalancerIP }}
+  loadBalancerIP: {{ .Values.graylog.service.master.loadBalancerIP }}
   {{- end -}}
-  {{- if .Values.graylog.service.loadBalancerSourceRanges }}
+  {{- if .Values.graylog.service.master.loadBalancerSourceRanges }}
   loadBalancerSourceRanges:
-  {{- range .Values.graylog.service.loadBalancerSourceRanges }}
+  {{- range .Values.graylog.service.master.loadBalancerSourceRanges }}
   - {{ . }}
   {{- end }}
   {{- end -}}
