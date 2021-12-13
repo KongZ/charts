@@ -30,7 +30,8 @@ spec:
       {{- end }}
       {{- if .Values.graylog.metrics.enabled }}
         prometheus.io/scrape: "true"
-        prometheus.io/port: "9000"
+        prometheus.io/port: "9833"
+        prometheus.io/path: "/api/metrics/prometheus"
       {{- end }}
     spec:
       serviceAccountName: {{ template "graylog.serviceAccountName" . }}
