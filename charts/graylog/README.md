@@ -110,11 +110,11 @@ The following table lists the configurable parameters of the Graylog chart and t
 | Parameter                                      | Description                                                                                                                                           | Default                           |
 |------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
 | `graylog.image.repository`                     | `graylog` image repository                                                                                                                            | `graylog/graylog`                 |
-| `graylog.image.repository.tag`                 | `graylog` image repository                                                                                                                            | `graylog/graylog:4.2.3-1`         |
+| `graylog.image.repository.tag`                 | `graylog` image repository                                                                                                                            | `4.2.3-1`         |
 | `graylog.imagePullPolicy`                      | Image pull policy                                                                                                                                     | `IfNotPresent`                    |
 | `graylog.replicas`                             | The number of Graylog instances in the cluster. The chart will automatic create assign master to one of replicas                                      | `2`                               |
 | `graylog.resources`                            | CPU/Memory resource requests/limits                                                                                                                   | Memory: `1024Mi`, CPU: `500m`     |
-| `graylog.heapSize`                             | Override Java heap size. If this value empty, chart will allocate heapsize using `-XX:+UseCGroupMemoryLimitForHeap`                                   |                                   |
+| `graylog.heapSize`                             | Override Java heap size. If this value empty, chart will allocate heap size using `-XX:+UseCGroupMemoryLimitForHeap`                                   |                                   |
 | `graylog.externalUri`                          | External URI that Graylog is available at                                                                                                             |                                   |
 | `graylog.externalUriTLS`                       | Using TLS offload on External URI? set this to `true` to get https:// on ExternalUri at                                                               |                                   |
 | `graylog.nodeSelector`                         | Graylog server pod assignment                                                                                                                         | `{}`                              |
@@ -311,7 +311,7 @@ those certificates with the following Input API configuration:
 
 ### Web HTTPS
 
-Graylog can be autoconfigured to run in HTTPS mode when provided certificates by setting the `graylog.tls.enabled` value to `true`.
+Graylog can be auto configured to run in HTTPS mode when provided certificates by setting the `graylog.tls.enabled` value to `true`.
 
 If the certificates are different than those provided above (different hostname for example), then the web-specific
 certificates can be added to `graylog.serverFiles` and you can configure the `graylog.tls.certPath` and `graylog.tls.keyPath` to match.

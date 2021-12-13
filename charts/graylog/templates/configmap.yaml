@@ -175,6 +175,7 @@ data:
     else
       # When container was recreated or restart, MASTER_IP == SELF_IP, running as master and no need to change label graylog-role="master"
       if [ "$SELF_IP" == "$MASTER_IP" ];then
+        echo "Launching $HOSTNAME as master"
         export GRAYLOG_IS_MASTER="true"
       else
         # MASTER_IP != SELF_IP, running as coordinating
