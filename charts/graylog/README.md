@@ -108,12 +108,13 @@ graylog:
 The following table lists the configurable parameters of the Graylog chart and their default values.
 
 | Parameter                                      | Description                                                                                                                                           | Default                           |
-| ---------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
-| `graylog.image.repository`                     | `graylog` image repository                                                                                                                            | `graylog/graylog:4.0.2-1`         |
+|------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
+| `graylog.image.repository`                     | `graylog` image repository                                                                                                                            | `graylog/graylog`                 |
+| `graylog.image.repository.tag`                 | `graylog` image repository                                                                                                                            | `4.2.3-1`         |
 | `graylog.imagePullPolicy`                      | Image pull policy                                                                                                                                     | `IfNotPresent`                    |
 | `graylog.replicas`                             | The number of Graylog instances in the cluster. The chart will automatic create assign master to one of replicas                                      | `2`                               |
 | `graylog.resources`                            | CPU/Memory resource requests/limits                                                                                                                   | Memory: `1024Mi`, CPU: `500m`     |
-| `graylog.heapSize`                             | Override Java heap size. If this value empty, chart will allocate heapsize using `-XX:+UseCGroupMemoryLimitForHeap`                                   |                                   |
+| `graylog.heapSize`                             | Override Java heap size. If this value empty, chart will allocate heap size using `-XX:+UseCGroupMemoryLimitForHeap`                                   |                                   |
 | `graylog.externalUri`                          | External URI that Graylog is available at                                                                                                             |                                   |
 | `graylog.externalUriTLS`                       | Using TLS offload on External URI? set this to `true` to get https:// on ExternalUri at                                                               |                                   |
 | `graylog.nodeSelector`                         | Graylog server pod assignment                                                                                                                         | `{}`                              |
@@ -125,7 +126,8 @@ The following table lists the configurable parameters of the Graylog chart and t
 | `graylog.envRaw`                               | Graylog server env variables in raw yaml format                                                                                                       | `{}`                              |
 | `graylog.podSecurityContext`                   | Set security context for defining privilege and accessing control settings entire Pod                                                                 | `{}`                              |
 | `graylog.securityContext`                      | Set security context for defining privilege and accessing control settings for Graylog container                                                      | `privileged: false`               |
-| `graylog.additionalJavaOpts`                   | Graylog service additional `JAVA_OPTS`                                                                                                                |                                   |
+| `graylog.javaOpts`                             | Graylog service `JAVA_OPTS`                                                                                                                           |                                   |
+| ~~graylog.additionalJavaOpts~~                 | Graylog service additional `JAVA_OPTS` (Replaced with `graylog.javaOpts`)                                                                             |                                   |
 | `graylog.service.type`                         | Kubernetes Service type                                                                                                                               | `ClusterIP`                       |
 | `graylog.service.port`                         | Graylog Service port                                                                                                                                  | `9000`                            |
 | `graylog.service.ports`                        | Graylog Service extra ports                                                                                                                           | `[]`                              |
@@ -302,14 +304,14 @@ The certificates will be mounted into the `/etc/graylog/server`, so Inputs (e.g.
 those certificates with the following Input API configuration:
 
 | Parameter      | Value                           |
-| -------------- | ------------------------------- |
+|----------------|---------------------------------|
 | tls_cert_file: | /etc/graylog/server/server.cert |
 | tls_enable:    | true                            |
 | tls_key_file:  | /etc/graylog/server/server.key  |
 
 ### Web HTTPS
 
-Graylog can be autoconfigured to run in HTTPS mode when provided certificates by setting the `graylog.tls.enabled` value to `true`.
+Graylog can be auto configured to run in HTTPS mode when provided certificates by setting the `graylog.tls.enabled` value to `true`.
 
 If the certificates are different than those provided above (different hostname for example), then the web-specific
 certificates can be added to `graylog.serverFiles` and you can configure the `graylog.tls.certPath` and `graylog.tls.keyPath` to match.
