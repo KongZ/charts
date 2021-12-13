@@ -21,5 +21,6 @@ jobs:
           VALIDATE_YAML: false
           VALIDATE_KUBERNETES_KUBEVAL: false
           VALIDATE_GITLEAKS: false
+          VALIDATE_NATURAL_LANGUAGE: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
