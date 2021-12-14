@@ -32,8 +32,16 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: {{ .Values.graylog.existingRootSecret | default (include "graylog.fullname" .) }}
-
                 key: graylog-password-secret
+          {{- range $key, $value := .Values.graylog.provisioner.env }}
+          - name: {{ $key }}
+            value: {{ $value | quote }}
+          {{- end }}
+          {{- if .Values.graylog.provisioner.envRaw }}
+          {{- with .Values.graylog.provisioner.envRaw }}
+              {{- toYaml . | nindent 12 }}
+          {{- end }}
+          {{- end }}
         volumeMounts:
           - name: configmap
             mountPath: /configmap
