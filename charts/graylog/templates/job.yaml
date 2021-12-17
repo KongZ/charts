@@ -39,7 +39,7 @@ spec:
           {{- end }}
           {{- if .Values.graylog.provisioner.envRaw }}
           {{- with .Values.graylog.provisioner.envRaw }}
-              {{- toYaml . | nindent 12 }}
+              {{- toYaml . | nindent 10 }}
           {{- end }}
           {{- end }}
         volumeMounts:
