@@ -19,6 +19,9 @@ metadata:
 {{- end }}
   name: {{ template "graylog.fullname" . }}-web
 spec:
+  {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/IngressClass" }}
+  ingressClassName: {{ .Values.graylog.ingress.ingressClassName }}
+  {{- end -}}
   rules:
   {{- range .Values.graylog.ingress.hosts }}
     - host: {{ . }}
