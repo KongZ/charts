@@ -21,7 +21,7 @@ metadata:
 spec:
   {{- if $.Capabilities.APIVersions.Has "networking.k8s.io/v1/IngressClass" }}
   ingressClassName: {{ .Values.graylog.ingress.ingressClassName }}
-  {{- end -}}
+  {{- end }}
   rules:
   {{- range .Values.graylog.ingress.hosts }}
     - host: {{ . }}
