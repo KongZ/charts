@@ -265,10 +265,14 @@ graylog:
     # labels:
     #  traffic-type: public
 
+    ## Specify the Ingress class name
+    ingressClassName: ""
+
     ## Graylog server Ingress hostnames with optional path
     ## Must be provided if Ingress is enabled
     ## Note: Graylog does not support two URL. You can specify only single URL
     ##
+
     hosts:
     #  - graylog.yourdomain.com
 
