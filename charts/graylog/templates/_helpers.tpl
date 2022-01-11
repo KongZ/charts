@@ -99,7 +99,7 @@ Or use chart dependencies with release name
 {{- else if .Values.graylog.elasticsearch.hosts }}
     {{- .Values.graylog.elasticsearch.hosts -}}
 {{- else }}
-    {{- printf "http://%s-elasticsearch-client.%s.svc.cluster.local:9200" .Release.Name .Release.Namespace -}}
+    {{- printf "http://elasticsearch-master.%s.svc.cluster.local:9200" .Release.Namespace -}}
 {{- end -}}
 {{- end -}}
 
