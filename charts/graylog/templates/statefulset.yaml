@@ -39,11 +39,7 @@ spec:
       nodeSelector:
 {{ toYaml .Values.graylog.nodeSelector | indent 8 }}
 {{- end }}
-{{- if .Values.graylog.affinity }}
-      affinity:
-{{ toYaml .Values.graylog.affinity | indent 8 }}
-
-{{- end }}
+{{ template "graylog.affinity" . }}
 {{- if .Values.graylog.tolerations }}
       tolerations:
 {{ toYaml .Values.graylog.tolerations | indent 8 }}
