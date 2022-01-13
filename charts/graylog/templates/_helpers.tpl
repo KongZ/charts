@@ -145,3 +145,18 @@ app.kubernetes.io/managed-by: "Tiller"
 app.kubernetes.io/managed-by: "{{ .Release.Service }}"
 {{- end -}}
 {{- end -}}
+
+{{/*
+Set's the affinity for pod placement when running in standalone and HA modes.
+*/}}
+{{- define "graylog.affinity" -}}
+  {{- if .Values.graylog.affinity }}
+      affinity:
+        {{ $tp := typeOf .Values.graylog.affinity }}
+        {{- if eq $tp "string" }}
+          {{- tpl .Values.graylog.affinity . | nindent 8 | trim }}
+        {{- else }}
+          {{- toYaml .Values.graylog.affinity | nindent 8 }}
+        {{- end }}
+  {{ end }}
+{{- end -}}
