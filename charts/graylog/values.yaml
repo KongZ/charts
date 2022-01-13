@@ -509,6 +509,17 @@ graylog:
 elasticsearch:
   replicas: 1
   minimumMasterNodes: 1
+  antiAffinity: "soft"
+  # Shrink default JVM heap.
+  esJavaOpts: "-Xmx128m -Xms128m"
+  # Allocate smaller chunks of memory per pod.
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "512M"
+    limits:
+      cpu: "1000m"
+      memory: "512M"
   volumeClaimTemplate:
     resources:
       requests:
