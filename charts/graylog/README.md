@@ -36,7 +36,7 @@ To install Elasticsearch, run
 helm install --namespace "graylog" elasticsearch elastic/elasticsearch
 ```
 
-The Elasticsearch installation command above will install all Elasticsearch 
+The Elasticsearch installation command above will install all Elasticsearch
 nodes types in single node. It is strongly recommend to follow the Elasticsearch [guide](https://github.com/elastic/helm-charts/tree/main/elasticsearch#how-to-deploy-dedicated-nodes-types) to install dedicated node on production.
 
 Note: There are many alternative Elasticsearch available on [artifacthub.io](https://artifacthub.io/packages/search?page=1&ts_query_web=elasticsearch). If you found the `stable/elasticsearch` is not suitable, you can search other charts from GitHub repositories.
