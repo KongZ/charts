@@ -15,7 +15,7 @@ To install the Graylog Chart with all dependencies
 ```bash
 kubectl create namespace graylog
 
-helm install --namespace "graylog" -n "graylog" kongz/graylog
+helm install --namespace "graylog" graylog kongz/graylog
 ```
 
 ## Manually Install Dependencies
@@ -25,7 +25,7 @@ This method is *recommended* when you want to expand the availability, scalabili
 To install MongoDB, run
 
 ```bash
-helm install --namespace "graylog" -n "mongodb" bitnami/mongodb
+helm install --namespace "graylog" mongodb bitnami/mongodb
 ```
 
 Note: There are many alternative MongoDB available on [artifacthub.io](https://artifacthub.io/packages/search?page=1&ts_query_web=mongodb). If you found the `bitnami/mongodb` is not suitable, you can use another MongoDB chart. Modify `graylog.mongodb.uri` to match your MongoDB endpoint.
@@ -33,8 +33,11 @@ Note: There are many alternative MongoDB available on [artifacthub.io](https://a
 To install Elasticsearch, run
 
 ```bash
-helm install --namespace "graylog" -n "elasticsearch" stable/elasticsearch
+helm install --namespace "graylog" elasticsearch elastic/elasticsearch
 ```
+
+The Elasticsearch installation command above will install all Elasticsearch
+nodes types in single node. It is strongly recommend to follow the Elasticsearch [guide](https://github.com/elastic/helm-charts/tree/main/elasticsearch#how-to-deploy-dedicated-nodes-types) to install dedicated node on production.
 
 Note: There are many alternative Elasticsearch available on [artifacthub.io](https://artifacthub.io/packages/search?page=1&ts_query_web=elasticsearch). If you found the `stable/elasticsearch` is not suitable, you can search other charts from GitHub repositories.
 
@@ -43,24 +46,24 @@ Note: There are many alternative Elasticsearch available on [artifacthub.io](htt
 To install the Graylog Chart into your Kubernetes cluster (This Chart requires persistent volume by default, you may need to create a storage class before install chart.
 
 ```bash
-helm install --namespace "graylog" -n "graylog" kongz/graylog \
+helm install --namespace "graylog" graylog kongz/graylog \
   --set tags.install-mongodb=false\
   --set tags.install-elasticsearch=false\
   --set graylog.mongodb.uri=mongodb://mongodb-mongodb-replicaset-0.mongodb-mongodb-replicaset.graylog.svc.cluster.local:27017/graylog?replicaSet=rs0 \
-  --set graylog.elasticsearch.hosts=http://elasticsearch-client.graylog.svc.cluster.local:9200
+  --set graylog.elasticsearch.hosts=http://elasticsearch-master.graylog.svc.cluster.local:9200
   --set graylog.elasticsearch.version=7
 ```
 
 After installation succeeds, you can get a status of Chart
 
 ```bash
-helm status "graylog"
+helm status graylog
 ```
 
 If you want to delete your Chart, use this command
 
 ```bash
-helm delete --purge "graylog"
+helm delete graylog
 ```
 
 ## Install Chart with specific Graylog cluster size
@@ -71,7 +74,7 @@ For example:
 Set cluster size to 5
 
 ```bash
-helm install --namespace "graylog" -n "graylog" --set graylog.replicas=5 kongz/graylog
+helm install --namespace "graylog" graylog --set graylog.replicas=5 kongz/graylog
 ```
 
 The command above will install 1 master and 4 coordinating.
