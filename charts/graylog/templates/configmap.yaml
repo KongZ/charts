@@ -99,6 +99,7 @@ data:
     {{- end }}
   {{- end }}
     elasticsearch_hosts = {{ template "graylog.elasticsearch.hosts" . }}
+    elasticsearch_request_timeout = {{ .Values.graylog.elasticsearch.request_timeout }}
     allow_leading_wildcard_searches = {{ .Values.graylog.options.allowLeadingWildcardSearches }}
     allow_highlighting = {{ .Values.graylog.options.allowHighlighting }}
     output_batch_size = 500

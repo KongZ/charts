@@ -371,6 +371,10 @@ graylog:
     uriSecretName: ""
     uriSecretKey: ""
     uriSSL: false
+    # Global request timeout for Elasticsearch requests (e. g. during search, index creation, or index time-range
+    # calculations) based on a best-effort to restrict the runtime of Elasticsearch operations.
+    # Default: 1m
+    request_timeout: 1m
 
   mongodb:
     ## MongoDB connection string
