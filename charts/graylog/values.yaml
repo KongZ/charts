@@ -213,6 +213,26 @@ graylog:
       ##
       type: ClusterIP
 
+  startupProbe:
+    periodSeconds: 60
+    failureThreshold: 3
+    successThreshold: 1
+    timeoutSeconds: 5
+
+  livenessProbe:
+    initialDelaySeconds: 0
+    periodSeconds: 30
+    failureThreshold: 3
+    successThreshold: 1
+    timeoutSeconds: 5
+
+  readinessProbe:
+    initialDelaySeconds: 0
+    periodSeconds: 10
+    failureThreshold: 3
+    successThreshold: 1
+    timeoutSeconds: 5
+
   ## Additional input ports for receiving logs from servers
   ## Note: Name must be in IANA_SVC_NAME (at most 15 characters, matching regex [a-z0-9]([a-z0-9-]*[a-z0-9])* and it must contains at least one letter [a-z], hyphens cannot be adjacent to other hyphens)
   ## Note: Array must be sorted by port order
