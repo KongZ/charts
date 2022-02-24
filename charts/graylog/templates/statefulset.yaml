@@ -108,6 +108,11 @@ spec:
               {{- else }}
               value: "{{ $javaOpts }} -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
               {{- end }}
+            {{- $externalUri := include "graylog.url" . }}
+            {{- if $externalUri }}
+            - name: GRAYLOG_HTTP_PUBLISH_URI
+              value: "{{ $externalUri }}"
+            {{- end }}
             - name: GRAYLOG_PASSWORD_SECRET
               valueFrom:
                 secretKeyRef:
