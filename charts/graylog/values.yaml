@@ -265,12 +265,9 @@ graylog:
     ##
     certFile: /etc/graylog/server/server.cert
 
-  ## External URL to access Graylog at
+  ## External URL to access Graylog at e.g. https://graylog.mycompany.com
   ##
   externalUri: ""
-
-  ## External URL is https ?
-  externalUriTLS: false
 
   ingress:
     ## If true, Graylog server Ingress will be created
@@ -543,7 +540,7 @@ elasticsearch:
   volumeClaimTemplate:
     resources:
       requests:
-        storage: 8Gi  # default 30Gi
+        storage: 8Gi # default 30Gi
 
 # Specify Mongodb settings. Ignore this section if you install MongoDB manually.
 mongodb:
