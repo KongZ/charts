@@ -540,7 +540,7 @@ elasticsearch:
   volumeClaimTemplate:
     resources:
       requests:
-        storage: 8Gi # default 30Gi
+        storage: 8Gi  # default 30Gi
 
 # Specify Mongodb settings. Ignore this section if you install MongoDB manually.
 mongodb:
