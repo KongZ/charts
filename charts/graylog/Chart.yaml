@@ -17,7 +17,7 @@ maintainers:
     email: goonohc@gmail.com
 dependencies:
   - name: elasticsearch
-    version: 7.16.2
+    version: 7.10.2
     repository: https://helm.elastic.co
     tags:
       - install-elasticsearch
