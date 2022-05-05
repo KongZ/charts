@@ -214,12 +214,16 @@ graylog:
       type: ClusterIP
 
   startupProbe:
+    path: /api/system/lbstatus
+    port: 9000
     periodSeconds: 60
     failureThreshold: 3
     successThreshold: 1
     timeoutSeconds: 5
 
   livenessProbe:
+    path: /api/system/lbstatus
+    port: 9000
     initialDelaySeconds: 0
     periodSeconds: 30
     failureThreshold: 3
@@ -227,6 +231,8 @@ graylog:
     timeoutSeconds: 5
 
   readinessProbe:
+    path: /api/system/lbstatus
+    port: 9000
     initialDelaySeconds: 0
     periodSeconds: 10
     failureThreshold: 3

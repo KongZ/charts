@@ -171,8 +171,8 @@ spec:
 {{ toYaml .Values.graylog.resources | indent 12 }}
           startupProbe:
             httpGet:
-              path: /api/system/lbstatus
-              port: 9000
+              path: {{ .Values.graylog.startupProbe.path }}
+              port: {{ .Values.graylog.startupProbe.port }}
             {{- if .Values.graylog.tls.enabled }}
               scheme: HTTPS
             {{- end }}
@@ -182,8 +182,8 @@ spec:
             timeoutSeconds: {{ .Values.graylog.startupProbe.timeoutSeconds }}
           livenessProbe:
             httpGet:
-              path: /api/system/lbstatus
-              port: 9000
+              path: {{ .Values.graylog.livenessProbe.path }}
+              port: {{ .Values.graylog.livenessProbe.port }}
             {{- if .Values.graylog.tls.enabled }}
               scheme: HTTPS
             {{- end }}
@@ -194,8 +194,8 @@ spec:
             timeoutSeconds: {{ .Values.graylog.livenessProbe.timeoutSeconds }}
           readinessProbe:
             httpGet:
-              path: /api/system/lbstatus
-              port: 9000
+              path: {{ .Values.graylog.readinessProbe.path }}
+              port: {{ .Values.graylog.readinessProbe.port }}
             {{- if .Values.graylog.tls.enabled }}
               scheme: HTTPS
             {{- end }}
