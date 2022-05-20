@@ -108,16 +108,8 @@ data:
     processbuffer_processors = 5
     outputbuffer_processors = 3
     processor_wait_strategy = blocking
-  {{- if .Values.graylog.options.ringSize }}
-    ring_size = {{ .Values.graylog.options.ringSize }}
-  {{ else }}
-    ring_size = 65536
-  {{- end }}
-  {{- if .Values.graylog.options.inputBufferRingSize }}
-    inputbuffer_ring_size = {{ .Values.graylog.options.inputBufferRingSize }}
-  {{ else }}
-    inputbuffer_ring_size = 65536
-  {{- end }}
+    ring_size = {{ .Values.graylog.options.ringSize | default 65536 }}
+    inputbuffer_ring_size = {{ .Values.graylog.options.inputBufferRingSize | default 65536 }}
     inputbuffer_processors = 2
     inputbuffer_wait_strategy = blocking
     message_journal_enabled = true
