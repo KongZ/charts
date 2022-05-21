@@ -518,6 +518,12 @@ graylog:
     ## This can be extremely resource hungry and should only be enabled with care.
     allowLeadingWildcardSearches: false
 
+    ## Size of internal ring buffers.
+    ## Must be a power of 2. (512, 1024, 2048, …)
+    ringSize: ""
+    inputBufferRingSize: ""
+
+
 ## Specify Elasticsearch version from requirement dependencies. Ignore this seection if you install Elasticsearch manually.
 ##
 ## Note: the official elasticsearch chart will install master, coordinate, data, and ingest in single node.

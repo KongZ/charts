@@ -221,6 +221,10 @@ The following table lists the configurable parameters of the Graylog chart and t
 | `imagePullSecrets`                             | Configuration for [imagePullSecrets][3] so that you can use a private registry for your images                                                        | `[]`                              |
 | `graylog.options.allowHighlighting`            | If true, enable [search result highlighting][6].                                                                                                      | `false`                           |
 | `graylog.options.allowLeadingWildcardSearches` | if true, allow searches with leading wildcards. This can be extremely resource hungry and should only be enabled with care.                           | `false`                           |
+| `graylog.options.ringSize`                    | Size of internal ring buffers.       |          `65536`                    |
+| `graylog.options.inputBufferRingSize`         | Size of input internal ring buffers. |          `65536`                    |
+
+
 
 ## How it works
 
