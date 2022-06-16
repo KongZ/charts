@@ -476,6 +476,7 @@ graylog:
   provisioner:
     enabled: false
     annotations: {}
+    nodeSelector: {}
     useGraylogServiceAccount: false
     # script: |
     #  json='{
