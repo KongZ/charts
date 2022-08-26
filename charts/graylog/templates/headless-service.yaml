@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ template "graylog.metrics.enabled" . }}
+  name: {{ template "graylog.service.headless.name" . }}
   labels:
 {{ include "graylog.metadataLabels" . | indent 4 }}
   annotations:
