@@ -13,6 +13,7 @@ spec:
 {{- if .Values.graylog.metrics.enabled }}
     - name: metrics
       port: 9833
+      targetPort: 9833
 {{- end }}
   type: ClusterIP
   clusterIP: None
