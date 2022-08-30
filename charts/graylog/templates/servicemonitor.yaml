@@ -24,6 +24,5 @@ spec:
       - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      app: {{ template "graylog.fullname" . }}
-      release: {{ .Release.Name }}
+{{ include "graylog.selectorLabels" . | indent 6 }}
 {{- end }}
