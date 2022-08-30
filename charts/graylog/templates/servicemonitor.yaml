@@ -11,7 +11,7 @@ metadata:
     {{- end }}
 spec:
   endpoints:
-    - port: 9833
+    - port: metrics
       path: /metrics
       {{- if .Values.graylog.metrics.serviceMonitor.interval }}
       interval: {{ .Values.graylog.metrics.serviceMonitor.interval }}
@@ -24,6 +24,5 @@ spec:
       - {{ .Release.Namespace }}
   selector:
     matchLabels:
-      app: {{ template "graylog.fullname" . }}
-      release: {{ .Release.Name }}
+{{ include "graylog.selectorLabels" . | indent 6 }}
 {{- end }}
