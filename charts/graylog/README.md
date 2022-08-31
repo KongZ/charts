@@ -126,7 +126,6 @@ The following table lists the configurable parameters of the Graylog chart and t
 | `graylog.env`                                  | Graylog server env variables                                                                                                                          | `{}`                              |
 | `graylog.customLabels`                         | Graylog additional labels for statefulset/pods                                                                                                        | `{}`                              |
 | `graylog.envRaw`                               | Graylog server env variables in raw yaml format                                                                                                       | `{}`                              |
-| `graylog.gc_warning_threshold`                 | The threshold of the garbage collection runs                                                                                                          | `1s`                              |
 | `graylog.podSecurityContext`                   | Set security context for defining privilege and accessing control settings entire Pod                                                                 | `{}`                              |
 | `graylog.securityContext`                      | Set security context for defining privilege and accessing control settings for Graylog container                                                      | `privileged: false`               |
 | `graylog.javaOpts`                             | Graylog service `JAVA_OPTS`                                                                                                                           |                                   |
@@ -226,6 +225,7 @@ The following table lists the configurable parameters of the Graylog chart and t
 | `imagePullSecrets`                             | Configuration for [imagePullSecrets][3] so that you can use a private registry for your images                                                        | `[]`                              |
 | `graylog.options.allowHighlighting`            | If true, enable [search result highlighting][6].                                                                                                      | `false`                           |
 | `graylog.options.allowLeadingWildcardSearches` | if true, allow searches with leading wildcards. This can be extremely resource hungry and should only be enabled with care.                           | `false`                           |
+| `graylog.options.gc_warning_threshold`         | The threshold of the garbage collection runs                                                                                                          | `1s`                              |
 | `graylog.options.ringSize`                    | Size of internal ring buffers.       |          `65536`                    |
 | `graylog.options.inputBufferRingSize`         | Size of input internal ring buffers. |          `65536`                    |
 

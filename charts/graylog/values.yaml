@@ -528,10 +528,10 @@ graylog:
     ringSize: ""
     inputBufferRingSize: ""
 
-  ## The threshold of the garbage collection runs. If GC runs take longer than this
-  ## threshold, a system notification will be generated to warn the administrator
-  ## about possible problems with the system. Default is 1 second.
-  gc_warning_threshold: 1s
+    ## The threshold of the garbage collection runs. If GC runs take longer than this
+    ## threshold, a system notification will be generated to warn the administrator
+    ## about possible problems with the system. Default is 1 second.
+    gc_warning_threshold: 1s
 
 ## Specify Elasticsearch version from requirement dependencies. Ignore this seection if you install Elasticsearch manually.
 ##
