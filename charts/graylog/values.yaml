@@ -314,6 +314,26 @@ graylog:
     ## An URL path
     path: /
 
+  istio:
+    ## If true, Graylog server Istio Ingress Gateway will be created
+    ##
+    enabled: false
+
+    ## Change if you use custom ingressgateway controller
+    gatewaySelector:
+      istio: ingressgateway
+
+    ## Graylog server Istio Ingress Gateway hostnames with optional path
+    ## Must be provided if Ingress is enabled
+    ## Note: Graylog does not support two URL. You can specify only single URL
+    ##
+    host: graylog.yourdomain.com
+
+    ## Please note that tls secret should reside in istio-system namespace
+    ## leave blanc for disabling TLS
+    tlsSecretName: ""
+
+
   ## Configure resource requests and limits
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
   ##
