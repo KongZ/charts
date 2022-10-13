@@ -105,12 +105,12 @@ data:
     output_flush_interval = 1
     output_fault_count_threshold = 5
     output_fault_penalty_seconds = 30
-    processbuffer_processors = 5
-    outputbuffer_processors = 3
+    processbuffer_processors = {{ .Values.graylog.options.processbufferProcessors | default 5 }}
+    outputbuffer_processors = {{ .Values.graylog.options.outputbufferProcessors | default 3 }}
     processor_wait_strategy = blocking
     ring_size = {{ .Values.graylog.options.ringSize | default 65536 }}
     inputbuffer_ring_size = {{ .Values.graylog.options.inputBufferRingSize | default 65536 }}
-    inputbuffer_processors = 2
+    inputbuffer_processors = {{ .Values.graylog.options.inputbufferProcessors | default 2 }}
     inputbuffer_wait_strategy = blocking
     message_journal_enabled = true
     # Do not change `message_journal_dir` location
