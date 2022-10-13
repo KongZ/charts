@@ -553,7 +553,7 @@ graylog:
     ## about possible problems with the system. Default is 1 second.
     gc_warning_threshold: 1s
 
-    ## Buffer processor settings. 
+    ## Buffer processor settings.
     ## A good rule of thumb is to never go over the number of cores available
     outputbufferProcessors: 3
     inputbufferProcessors: 2
