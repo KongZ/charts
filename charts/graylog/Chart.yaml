@@ -1,8 +1,8 @@
 apiVersion: v2
 name: graylog
 home: https://www.graylog.org
-version: 2.1.8
-appVersion: 4.2.7
+version: 2.2.0
+appVersion: 4.3.8
 description: Graylog is the centralized log management solution built to open standards for capturing, storing, and enabling real-time analysis of terabytes of machine data.
 keywords:
   - graylog
@@ -17,7 +17,7 @@ maintainers:
     email: goonohc@gmail.com
 dependencies:
   - name: elasticsearch
-    version: 7.10.2
+    version: 7.16.2
     repository: https://helm.elastic.co
     tags:
       - install-elasticsearch
