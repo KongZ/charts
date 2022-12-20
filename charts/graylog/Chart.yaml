@@ -26,3 +26,8 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     tags:
       - install-mongodb
+  - name: opensearch
+    version: 1.15.0
+    repository: https://opensearch-project.github.io/helm-charts/
+    tags:
+      - install-opensearch
