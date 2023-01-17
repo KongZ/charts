@@ -55,11 +55,11 @@ graylog:
   ##
   image:
     repository: "graylog/graylog"
-    tag: "4.2.3-1"
+    tag: "5.0.2"
     pullPolicy: "IfNotPresent"
 
   ## Graylog default Java option
-  javaOpts: "-Dlog4j2.formatMsgNoLookups=true -Djdk.tls.acknowledgeCloseNotify=true -XX:+UnlockExperimentalVMOptions -XX:NewRatio=1 -XX:MaxMetaspaceSize=256m -server -XX:+ResizeTLAB -XX:-OmitStackTraceInFastThrow"
+  javaOpts: "-Dlog4j2.formatMsgNoLookups=true -Djdk.tls.acknowledgeCloseNotify=true -XX:+UnlockExperimentalVMOptions -XX:-OmitStackTraceInFastThrow -XX:+UseG1GC -server"
 
   ## Number of Graylog instance
   ##

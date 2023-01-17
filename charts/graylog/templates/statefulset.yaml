@@ -103,11 +103,7 @@ spec:
           env:
             - name: GRAYLOG_SERVER_JAVA_OPTS
               {{- $javaOpts := .Values.graylog.javaOpts }}
-              {{- if .Values.graylog.heapSize }}
-              value: "{{ $javaOpts }} {{ printf "-Xms%s -Xmx%s" .Values.graylog.heapSize .Values.graylog.heapSize}}"
-              {{- else }}
-              value: "{{ $javaOpts }} -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap"
-              {{- end }}
+              value: "{{ $javaOpts }}"
             - name: GRAYLOG_PASSWORD_SECRET
               valueFrom:
                 secretKeyRef:
