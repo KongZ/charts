@@ -22,7 +22,12 @@ dependencies:
     tags:
       - install-elasticsearch
   - name: mongodb
-    version: 10.31.2
+    version: 13.6.4
     repository: https://charts.bitnami.com/bitnami
     tags:
       - install-mongodb
+  - name: opensearch
+    version: 2.9.1
+    repository: https://opensearch-project.github.io/helm-charts
+    tags:
+      - install-opensearch

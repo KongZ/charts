@@ -55,11 +55,11 @@ graylog:
   ##
   image:
     repository: "graylog/graylog"
-    tag: "4.2.3-1"
+    tag: "5.0.2"
     pullPolicy: "IfNotPresent"
 
   ## Graylog default Java option
-  javaOpts: "-Dlog4j2.formatMsgNoLookups=true -Djdk.tls.acknowledgeCloseNotify=true -XX:+UnlockExperimentalVMOptions -XX:NewRatio=1 -XX:MaxMetaspaceSize=256m -server -XX:+ResizeTLAB -XX:-OmitStackTraceInFastThrow"
+  javaOpts: "-Dlog4j2.formatMsgNoLookups=true -Djdk.tls.acknowledgeCloseNotify=true -XX:+UnlockExperimentalVMOptions -XX:-OmitStackTraceInFastThrow -XX:+UseG1GC -server"
 
   ## Number of Graylog instance
   ##
@@ -90,7 +90,8 @@ graylog:
   ## Node tolerations for node-exporter scheduling to nodes with taints
   ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/
   ##
-  tolerations: []
+  tolerations:
+    []
     # - key: "key"
     #   operator: "Equal|Exists"
     #   value: "value"
@@ -112,7 +113,8 @@ graylog:
   ## Set security context for defining privilege and accessing control settings entire Pod
   ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   ##
-  podSecurityContext: {}
+  podSecurityContext:
+    {}
     # runAsUser: 10001
     # fsGroup: 65534
 
@@ -237,7 +239,8 @@ graylog:
   ## Note: Name must be in IANA_SVC_NAME (at most 15 characters, matching regex [a-z0-9]([a-z0-9-]*[a-z0-9])* and it must contains at least one letter [a-z], hyphens cannot be adjacent to other hyphens)
   ## Note: Array must be sorted by port order
   ##
-  input: {}
+  input:
+    {}
     # tcp:
     #   service:
     #     name: your-tcp-service-name
@@ -332,7 +335,6 @@ graylog:
     ## Please note that tls secret should reside in istio-system namespace
     ## leave blanc for disabling TLS
     tlsSecretName: ""
-
 
   ## Configure resource requests and limits
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/
@@ -488,7 +490,8 @@ graylog:
   ## Additional server files will be deployed to /etc/graylog/server
   ## For example, you can put server certificates or authorized clients certificates here
   ##
-  serverFiles: {}
+  serverFiles:
+    {}
     # server.key: |
     # server.cert: |
 
@@ -581,7 +584,7 @@ elasticsearch:
   volumeClaimTemplate:
     resources:
       requests:
-        storage: 8Gi  # default 30Gi
+        storage: 8Gi # default 30Gi
 
 # Specify Mongodb settings. Ignore this section if you install MongoDB manually.
 mongodb:
