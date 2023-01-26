@@ -29,6 +29,6 @@ dependencies:
   - tags:
       - install-opensearch
     name: opensearch
-    version: 2.0.1
+    version: 2.8.0
     repository: https://opensearch-project.github.io/helm-charts
 type: application
