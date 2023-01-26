@@ -416,7 +416,7 @@ graylog:
     # {{ graylog.fullname }}-es will be used as uriSecretName if left empty
     uriSecretName: ""
     uriSecretKey: ""
-    uriSSL: true
+    uriSSL: false
 
   mongodb:
     ## MongoDB connection string
