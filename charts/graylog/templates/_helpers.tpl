@@ -86,7 +86,7 @@ Or use chart dependencies with release name
 {{- else if .Values.graylog.opensearch.hosts }}
     {{- .Values.graylog.opensearch.hosts -}}
 {{- else }}
-    {{- printf "http://opensearch-cluster-master.%s.svc.cluster.local:9200" .Release.Namespace -}}
+    {{- printf "http://opensearch-cluster-master-headless.%s.svc.cluster.local:9200" .Release.Namespace -}}
 {{- end -}}
 {{- end -}}
 

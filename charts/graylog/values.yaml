@@ -410,13 +410,13 @@ graylog:
     ## If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that
     ## requires authentication.
     ##
-    # hosts: http://opensearch-cluster-master.graylog.svc.cluster.local:9200
+    # hosts: http://opensearch-cluster-master-headless.graylog.svc.cluster.local:9200
     hosts: ""
     # Allow elasticsearch hosts to be fetched from a k8s secret
     # {{ graylog.fullname }}-es will be used as uriSecretName if left empty
     uriSecretName: ""
     uriSecretKey: ""
-    uriSSL: false
+    uriSSL: true
 
   mongodb:
     ## MongoDB connection string
@@ -566,6 +566,19 @@ graylog:
 
 opensearch:
   enabled: true
+  extraEnvs:
+  - name: plugins.security.ssl.http.enabled
+    value: "false"
+  - name: plugins.security.disabled
+    value: "true"
+  # - name: OPENSEARCH_JAVA_OPTS
+  #   value: "-Xms512m -Xmx512m"
+    
+    # - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      # - "discovery.seed_hosts=opensearch2,opensearch3"
+      # - "cluster.initial_master_nodes=opensearch1,opensearch2,opensearch3"
+      # - "bootstrap.memory_lock=true"
+      # - "action.auto_create_index=false"
   # resources:
   #   requests:
   #     cpu: "100m"

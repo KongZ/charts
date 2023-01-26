@@ -50,7 +50,7 @@ helm install --namespace "graylog" graylog kongz/graylog \
   --set tags.install-mongodb=false\
   --set tags.install-opensearch=false\
   --set graylog.mongodb.uri=mongodb://mongodb-mongodb-replicaset-0.mongodb-mongodb-replicaset.graylog.svc.cluster.local:27017/graylog?replicaSet=rs0 \
-  --set graylog.opensearch.hosts=http://opensearch-cluster-master.graylog.svc.cluster.local:9200
+  --set graylog.opensearch.hosts=http://opensearch-cluster-master-headless.graylog.svc.cluster.local:9200
   --set graylog.opensearch.version=7
 ```
 
