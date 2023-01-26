@@ -13,7 +13,7 @@ keywords:
   - gelf
 icon: https://global-uploads.webflow.com/5a218ef7897bf400019e2f16/5a218ef7897bf400019e2f60_logo-graylog.png
 sources:
-  - https://github.com/KongZ/charts
+  - https://github.com/luizjr/graylog-charts
 maintainers:
   - name: KongZ
     email: goonohc@gmail.com
