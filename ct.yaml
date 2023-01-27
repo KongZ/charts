@@ -4,6 +4,6 @@ chart-dirs:
 chart-repos:
   - bitnami=https://charts.bitnami.com/bitnami
   - stable=https://charts.helm.sh/stable
-  - luizjr=https://charts.luizjr.dev
+  - kongz=https://charts.kong-z.com
   - opensearch=https://opensearch-project.github.io/helm-charts
 target-branch: main
