@@ -17,7 +17,7 @@ sources:
 maintainers:
   - name: KongZ
     email: goonohc@gmail.com
-  - name: Luiz Jr
+  - name: "Luiz Jr"
     email: lj@luizjr.dev
     url: https://luizjr.dev
 dependencies:
