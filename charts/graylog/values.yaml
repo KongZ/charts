@@ -567,18 +567,18 @@ graylog:
 opensearch:
   enabled: true
   extraEnvs:
-  - name: plugins.security.ssl.http.enabled
-    value: "false"
-  - name: plugins.security.disabled
-    value: "true"
+    - name: plugins.security.ssl.http.enabled
+      value: "false"
+    - name: plugins.security.disabled
+      value: "true"
   # - name: OPENSEARCH_JAVA_OPTS
   #   value: "-Xms512m -Xmx512m"
-    
-    # - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
-      # - "discovery.seed_hosts=opensearch2,opensearch3"
-      # - "cluster.initial_master_nodes=opensearch1,opensearch2,opensearch3"
-      # - "bootstrap.memory_lock=true"
-      # - "action.auto_create_index=false"
+
+  # - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+  # - "discovery.seed_hosts=opensearch2,opensearch3"
+  # - "cluster.initial_master_nodes=opensearch1,opensearch2,opensearch3"
+  # - "bootstrap.memory_lock=true"
+  # - "action.auto_create_index=false"
   # resources:
   #   requests:
   #     cpu: "100m"
