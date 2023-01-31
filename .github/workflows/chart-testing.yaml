@@ -36,7 +36,7 @@ jobs:
         run: |
           changed=$(ct list-changed --target-branch main)
           if [[ -n "$changed" ]]; then
-            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "::set-output name=changed::true"
           fi
 
       - name: Run chart-testing (lint)
