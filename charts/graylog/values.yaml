@@ -344,8 +344,8 @@ graylog:
     limits:
       cpu: "1"
     requests:
-      cpu: "500m"
-      memory: "1024Mi"
+      cpu: "200m"
+      memory: "512Mi"
 
   ## Set Graylog Java heapsize. If this value empty, chart will allocate heapsize using `-XX:+UseCGroupMemoryLimitForHeap`
   ## ref: https://blogs.oracle.com/java-platform-group/java-se-support-for-docker-cpu-and-memory-limits
