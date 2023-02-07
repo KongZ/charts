@@ -1,9 +1,11 @@
 apiVersion: v2
 name: graylog
 home: https://www.graylog.org
-version: 2.2.0
-appVersion: 4.3.8
-description: Graylog is the centralized log management solution built to open standards for capturing, storing, and enabling real-time analysis of terabytes of machine data.
+version: 2.3.0
+appVersion: 5.0.2
+description: Graylog is the centralized log management solution built to open
+  standards for capturing, storing, and enabling real-time analysis of terabytes
+  of machine data.
 keywords:
   - graylog
   - logs
@@ -15,14 +17,18 @@ sources:
 maintainers:
   - name: KongZ
     email: goonohc@gmail.com
+  - name: LuizJr
+    email: lj@luizjr.dev
+    url: https://luizjr.dev
 dependencies:
-  - name: elasticsearch
-    version: 7.16.2
-    repository: https://helm.elastic.co
-    tags:
-      - install-elasticsearch
-  - name: mongodb
-    version: 10.31.2
-    repository: https://charts.bitnami.com/bitnami
-    tags:
+  - tags:
       - install-mongodb
+    name: mongodb
+    version: 13.6.6
+    repository: https://charts.bitnami.com/bitnami
+  - tags:
+      - install-opensearch
+    name: opensearch
+    version: 2.8.0
+    repository: https://opensearch-project.github.io/helm-charts
+type: application

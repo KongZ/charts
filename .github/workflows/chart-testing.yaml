@@ -20,9 +20,9 @@ jobs:
       - name: Add dependency chart repos
         run: |
           helm repo add bitnami https://charts.bitnami.com/bitnami
-          helm repo add elastic https://helm.elastic.co
           helm repo add stable https://charts.helm.sh/stable
           helm repo add kongz https://charts.kong-z.com
+          helm repo add opensearch https://opensearch-project.github.io/helm-charts/
 
       - uses: actions/setup-python@v2.2.2
         with:
@@ -36,7 +36,7 @@ jobs:
         run: |
           changed=$(ct list-changed --target-branch main)
           if [[ -n "$changed" ]]; then
-            echo "::set-output name=changed::true"
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Run chart-testing (lint)
