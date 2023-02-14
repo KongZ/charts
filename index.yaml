@@ -2,43 +2,77 @@ apiVersion: v1
 entries:
   graylog:
   - apiVersion: v2
-      appVersion: 5.0.2
-      created: "2023-01-25T11:00:21.573344522Z"
-      dependencies:
-        - tags:
-            - install-mongodb
-          name: mongodb
-          version: 13.6.6
-          repository: https://charts.bitnami.com/bitnami
-        - tags:
-            - install-opensearch
-          name: opensearch
-          version: 2.8.0
-          repository: https://opensearch-project.github.io/helm-charts
-      description:
-        Graylog is the centralized log management solution built to open
-        standards for capturing, storing, and enabling real-time analysis of terabytes
-        of machine data.
-      digest: 5fa233f803ff8fd4e5c864f5299f486ed8ee2cb05b953a2819f2963f653e4a39
-      home: https://www.graylog.org
-      icon: https://global-uploads.webflow.com/5a218ef7897bf400019e2f16/5a218ef7897bf400019e2f60_logo-graylog.png
-      keywords:
-        - graylog
-        - logs
-        - syslog
-        - gelf
-      maintainers:
-        - name: KongZ
-          email: goonohc@gmail.com
-        - name: Luiz Jr
-          email: lj@luizjr.dev
-          url: https://luizjr.dev
-      name: graylog
-      sources:
-        - https://github.com/KongZ/charts
-      urls:
-        - https://github.com/KongZ/charts/releases/download/graylog-2.3.0/graylog-2.3.0.tgz
-      version: 2.3.0
+    appVersion: 5.0.3
+    created: "2023-02-14T05:18:33.128708864Z"
+    dependencies:
+    - name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - install-mongodb
+      version: 13.6.6
+    - name: opensearch
+      repository: https://opensearch-project.github.io/helm-charts
+      tags:
+      - install-opensearch
+      version: 2.8.0
+    description: Graylog is the centralized log management solution built to open
+      standards for capturing, storing, and enabling real-time analysis of terabytes
+      of machine data.
+    digest: d4cbf0c0081d8d9686c3e3d74af8050b2323bcc9025af8cf512b8a5c29396dbb
+    home: https://www.graylog.org
+    icon: https://global-uploads.webflow.com/5a218ef7897bf400019e2f16/5a218ef7897bf400019e2f60_logo-graylog.png
+    keywords:
+    - graylog
+    - logs
+    - syslog
+    - gelf
+    maintainers:
+    - email: goonohc@gmail.com
+      name: KongZ
+    - email: lj@luizjr.dev
+      name: LuizJr
+      url: https://luizjr.dev
+    name: graylog
+    sources:
+    - https://github.com/KongZ/charts
+    type: application
+    urls:
+    - https://github.com/luizjr/graylog-charts/releases/download/graylog-2.3.1/graylog-2.3.1.tgz
+    version: 2.3.1
+  - apiVersion: v2
+    appVersion: 5.0.2
+    created: "2023-01-25T11:00:21.573344522Z"
+    dependencies:
+    - name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - install-mongodb
+      version: 13.6.6
+    - name: opensearch
+      repository: https://opensearch-project.github.io/helm-charts
+      tags:
+      - install-opensearch
+      version: 2.8.0
+    description: Graylog is the centralized log management solution built to open
+      standards for capturing, storing, and enabling real-time analysis of terabytes
+      of machine data.
+    digest: 5fa233f803ff8fd4e5c864f5299f486ed8ee2cb05b953a2819f2963f653e4a39
+    home: https://www.graylog.org
+    icon: https://global-uploads.webflow.com/5a218ef7897bf400019e2f16/5a218ef7897bf400019e2f60_logo-graylog.png
+    keywords:
+    - graylog
+    - logs
+    - syslog
+    - gelf
+    maintainers:
+    - email: goonohc@gmail.com
+      name: KongZ
+    name: graylog
+    sources:
+    - https://github.com/luizjr/graylog-charts
+    urls:
+    - https://github.com/luizjr/graylog-charts/releases/download/graylog-2.3.0/graylog-2.3.0.tgz
+    version: 2.3.0
   - apiVersion: v2
     appVersion: 4.3.8
     created: "2022-11-21T15:00:21.573344522Z"
@@ -1467,4 +1501,4 @@ entries:
     urls:
     - https://github.com/KongZ/charts/releases/download/1.7.0/graylog-1.7.0.tgz
     version: 1.7.0
-generated: "2022-11-21T15:00:21.579244061Z"
+generated: "2023-02-14T05:18:33.129095267Z"
