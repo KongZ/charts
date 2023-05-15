@@ -51,11 +51,13 @@ spec:
 {{- if .Values.graylog.priorityClassName }}
       priorityClassName: {{ .Values.graylog.priorityClassName }}
 {{- end }}
-      securityContext:
+      securityContext
         {{- toYaml .Values.graylog.podSecurityContext | nindent 8 }}
       initContainers:
         - name: "setup"
+          registry: {{ .Values.graylog.init.image.registry | default "docker.io" }}
           image: {{ .Values.graylog.init.image.repository | default "busybox" }}
+          tag: {{ .Values.graylog.init.image.tag | default "latest" }}
           imagePullPolicy: {{ .Values.graylog.init.image.pullPolicy | default "IfNotPresent" }}
           # Graylog journal will recursive in every subdirectories. Any invalid format directories will cause errors
           command:
