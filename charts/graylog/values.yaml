@@ -473,7 +473,9 @@ graylog:
     ## Init Container image
     ##
     image:
+      registry: "docker.io"
       repository: "alpine"
+      tag: "3.18.0"
       pullPolicy: "IfNotPresent"
 
     ## Set kubectl location to download and use on init-container. If the value is not set, the https://storage.googleapis.com/kubernetes-release/ will be used.
