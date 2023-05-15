@@ -51,7 +51,7 @@ spec:
 {{- if .Values.graylog.priorityClassName }}
       priorityClassName: {{ .Values.graylog.priorityClassName }}
 {{- end }}
-      securityContext
+      securityContext:
         {{- toYaml .Values.graylog.podSecurityContext | nindent 8 }}
       initContainers:
         - name: "setup"
