@@ -162,36 +162,36 @@ data:
     find ${GRAYLOG_HOME}/plugins-default/ -type f -exec cp {} ${GRAYLOG_PLUGIN_DIR} \;
     # Looking for Master IP
     retry=1
-    for i in {0..2}
-    do
-      MASTER_IP=`/k8s/kubectl --namespace {{ .Release.Namespace }} get pod -o jsonpath='{range .items[*]}{.metadata.name} {.status.podIP}{"\n"}{end}' -l graylog-role=master --field-selector=status.phase=Running|awk '{print $2}'`
-      SELF_IP=`/k8s/kubectl --namespace {{ .Release.Namespace }} get pod $HOSTNAME -o jsonpath='{.status.podIP}'`
-      echo "Current master is $MASTER_IP"
-      echo "Self IP is $SELF_IP"
-      retry=$((retry+1))
-      [[ ! -z "$MASTER_IP" ]] && break
-      echo "[Try ${retry}/3] Waiting for master node..."
-      sleep 2
-    done
-    if [[ -z "$MASTER_IP" ]]; then
-      echo "Launching $HOSTNAME as master"
-      export GRAYLOG_IS_MASTER="true"
-      export GRAYLOG_IS_LEADER="true"
-      /k8s/kubectl --namespace {{ .Release.Namespace }} label --overwrite pod $HOSTNAME graylog-role="master"
-    else
-      # When container was recreated or restart, MASTER_IP == SELF_IP, running as master and no need to change label graylog-role="master"
-      if [ "$SELF_IP" == "$MASTER_IP" ];then
-        echo "Launching $HOSTNAME as master"
-        export GRAYLOG_IS_MASTER="true"
-        export GRAYLOG_IS_LEADER="true"
-      else
-        # MASTER_IP != SELF_IP, running as coordinating
-        echo "Launching $HOSTNAME as coordinating"
-        export GRAYLOG_IS_MASTER="false"
-        export GRAYLOG_IS_LEADER="false"
-        /k8s/kubectl --namespace {{ .Release.Namespace }} label --overwrite pod $HOSTNAME graylog-role="coordinating"
-      fi
-    fi
+    #for i in {0..2}
+    #do
+    #  MASTER_IP=`/k8s/kubectl --namespace {{ .Release.Namespace }} get pod -o jsonpath='{range .items[*]}{.metadata.name} {.status.podIP}{"\n"}{end}' -l graylog-role=master --field-selector=status.phase=Running|awk '{print $2}'`
+    #  SELF_IP=`/k8s/kubectl --namespace {{ .Release.Namespace }} get pod $HOSTNAME -o jsonpath='{.status.podIP}'`
+    #  echo "Current master is $MASTER_IP"
+    #  echo "Self IP is $SELF_IP"
+    #  retry=$((retry+1))
+    #  [[ ! -z "$MASTER_IP" ]] && break
+    #  echo "[Try ${retry}/3] Waiting for master node..."
+    #  sleep 2
+    #done
+    #if [[ -z "$MASTER_IP" ]]; then
+    #  echo "Launching $HOSTNAME as master"
+    #  export GRAYLOG_IS_MASTER="true"
+    #  export GRAYLOG_IS_LEADER="true"
+    #  /k8s/kubectl --namespace {{ .Release.Namespace }} label --overwrite pod $HOSTNAME graylog-role="master"
+    #else
+    #  # When container was recreated or restart, MASTER_IP == SELF_IP, running as master and no need to change label graylog-role="master"
+    #  if [ "$SELF_IP" == "$MASTER_IP" ];then
+    #    echo "Launching $HOSTNAME as master"
+    #    export GRAYLOG_IS_MASTER="true"
+    #    export GRAYLOG_IS_LEADER="true"
+    #  else
+    #    # MASTER_IP != SELF_IP, running as coordinating
+    #    echo "Launching $HOSTNAME as coordinating"
+    #    export GRAYLOG_IS_MASTER="false"
+    #    export GRAYLOG_IS_LEADER="false"
+    #    /k8s/kubectl --namespace {{ .Release.Namespace }} label --overwrite pod $HOSTNAME graylog-role="coordinating"
+    #  fi
+    #fi
     # Download plugins
   {{- if .Values.graylog.plugins.proxy.enabled }}
     export https_proxy={{ .Values.graylog.plugins.proxy.host }}

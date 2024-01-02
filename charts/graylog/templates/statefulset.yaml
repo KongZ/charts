@@ -110,6 +110,12 @@ spec:
           command:
             - /entrypoint.sh
           env:
+            # Kubernetes Auto Master Selection
+            # https://go2docs.graylog.org/5-0/downloading_and_installing_graylog/docker_installation.htm#KubernetesAutomaticMasterSelection
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             - name: GRAYLOG_SERVER_JAVA_OPTS
               {{- $javaOpts := .Values.graylog.javaOpts }}
               {{- if .Values.graylog.heapSize }}
