@@ -361,6 +361,13 @@ graylog:
   ##
   # maxUnavailable: 10%
 
+  ## See `kubectl explain poddisruptionbudget.spec` for more
+  ## ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+  podDisruptionBudget:
+    create: false
+    minAvailable: 1
+    # maxUnavailable: 1
+
   ## Graylog server pod termination grace period
   ##
   terminationGracePeriodSeconds: 120
