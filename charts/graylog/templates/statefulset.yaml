@@ -7,6 +7,7 @@ metadata:
 {{- with .Values.graylog.customLabels }}
 {{ . | toYaml | indent 4 }}
 {{- end }}
+{{ $graylogVersion := .Values.graylog.image.tag | default .Chart.AppVersion }}
 spec:
   serviceName: {{ template "graylog.service.headless.name" . }}
   replicas: {{ .Values.graylog.replicas }}
@@ -72,12 +73,14 @@ spec:
               rm -rf /usr/share/graylog/data/journal/messagejournal-0
               rm -rf /usr/share/graylog/data/journal/recovery-point-offset-checkpoint
             {{- end }}
+            {{- if semverCompare "< 4.2.0-0" ( $graylogVersion ) }}
               {{- if .Values.graylog.init.kubectlLocation }}
               wget {{ .Values.graylog.init.kubectlLocation }} -O /k8s/kubectl
               {{- else }}
               wget https://storage.googleapis.com/kubernetes-release/release/{{ .Values.graylog.init.kubectlVersion | default .Capabilities.KubeVersion.Version }}/bin/linux/amd64/kubectl -O /k8s/kubectl
               {{- end }}
               chmod +x /k8s/kubectl
+            {{- end }}
 
               GRAYLOG_HOME=/usr/share/graylog
               chown -R 1100:1100 ${GRAYLOG_HOME}/data/
@@ -89,8 +92,10 @@ spec:
           volumeMounts:
             - name: journal
               mountPath: /usr/share/graylog/data/journal
+            {{- if semverCompare "< 4.2.0-0" ( $graylogVersion ) }}
             - name: kubectl
               mountPath: /k8s
+            {{- end }}
 {{- if .Values.graylog.init.resources }}
           resources:
 {{ toYaml .Values.graylog.init.resources | indent 12 }}
@@ -105,6 +110,12 @@ spec:
           command:
             - /entrypoint.sh
           env:
+            # Kubernetes Auto Master Selection
+            # https://go2docs.graylog.org/5-0/downloading_and_installing_graylog/docker_installation.htm#KubernetesAutomaticMasterSelection
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
             - name: GRAYLOG_SERVER_JAVA_OPTS
               {{- $javaOpts := .Values.graylog.javaOpts }}
               {{- if .Values.graylog.heapSize }}
@@ -224,12 +235,13 @@ spec:
             - name: files
               mountPath: /etc/graylog/server
           {{- end }}
+          {{- if semverCompare "< 4.2.0-0" ( $graylogVersion ) }}
             - name: kubectl
               mountPath: /k8s
+          {{- end }}
           {{- if .Values.graylog.extraVolumeMounts }}
           {{ toYaml .Values.graylog.extraVolumeMounts | nindent 12 }}
           {{- end }}
-          {{ $graylogVersion := .Values.graylog.image.tag | default .Chart.AppVersion }}
           {{- if semverCompare "< 4.2.0-0" ( $graylogVersion ) }}
           lifecycle:
             preStop:
@@ -271,8 +283,10 @@ spec:
           configMap:
             name: {{ template "graylog.fullname" . }}-files
         {{- end }}
+        {{- if semverCompare "< 4.2.0-0" ( $graylogVersion ) }}
         - name: kubectl
           emptyDir: {}
+        {{- end }}
         {{- if .Values.graylog.extraVolumes }}
         {{ toYaml .Values.graylog.extraVolumes | nindent 8 }}
         {{- end }}
