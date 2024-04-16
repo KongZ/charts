@@ -115,15 +115,19 @@ graylog:
   ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   ##
   podSecurityContext:
-    {}
-    # runAsUser: 10001
-    # fsGroup: 65534
-
+    fsGroup: 1100
+    fsGroupChangePolicy: Always
   ## Set security context for defining privilege and accessing control settings for Graylog container
   ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/security-context/
   ##
   securityContext:
-    privileged: false
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: false
+    runAsNonRoot: true
+    seccompProfile:
+      type: RuntimeDefault
+    runAsUser: 1100
+    runAsGroup: 1100
     # capabilities:
     #   drop:
     #   - ALL
