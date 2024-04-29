@@ -77,16 +77,15 @@ spec:
               {{- if .Values.graylog.init.kubectlLocation }}
               wget {{ .Values.graylog.init.kubectlLocation }} -O /k8s/kubectl
               {{- else }}
-              wget https://storage.googleapis.com/kubernetes-release/release/{{ .Values.graylog.init.kubectlVersion | default .Capabilities.KubeVersion.Version }}/bin/linux/amd64/kubectl -O /k8s/kubectl
+              {{.Capabilities.KubeVersion}}
+              wget https://dl.k8s.io/release/{{ .Values.graylog.init.kubectlVersion | default (regexReplaceAll "-.+" .Capabilities.KubeVersion.Version "") }}/bin/linux/amd64/kubectl -O /k8s/kubectl
               {{- end }}
               chmod +x /k8s/kubectl
 
               GRAYLOG_HOME=/usr/share/graylog
               chown -R 1100:1100 ${GRAYLOG_HOME}/data/
-{{- if .Values.graylog.securityContext }}
           securityContext:
-            {{- toYaml .Values.graylog.securityContext | nindent 12 }}
-{{- end }}
+            runAsUser: 0 # We require permission to change the volume owner
           env:
             {{- range $key, $value := .Values.graylog.init.env }}
             - name: {{ $key }}
