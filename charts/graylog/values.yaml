@@ -221,7 +221,7 @@ graylog:
       type: ClusterIP
 
   ## Override startupProbe config (path not allowed).
-  ## In a typical Graylog deployment, it can take up to 60 seconds for OpenSearch and MongoDB to become fully available. 
+  ## In a typical Graylog deployment, it can take up to 60 seconds for OpenSearch and MongoDB to become fully available.
   ## This wait time can be reduced if your system has faster startup times.
   ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes
   ##
