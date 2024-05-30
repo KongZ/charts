@@ -231,17 +231,6 @@ spec:
           {{- if .Values.graylog.extraVolumeMounts }}
           {{ toYaml .Values.graylog.extraVolumeMounts | nindent 12 }}
           {{- end }}
-          lifecycle:
-            preStop:
-              exec:
-                command:
-                  - bash
-                  - -ec
-                  - |
-                    curl {{ if .Values.graylog.tls.enabled }}-k{{ end }} -XPOST -sS \
-                      -u "{{ .Values.graylog.rootUsername }}:${GRAYLOG_PASSWORD_SECRET}" \
-                      -H "X-Requested-By: {{ template "graylog.fullname" . }}" \
-                      {{ template "graylog.formatUrl" (list . "localhost:9000/api/system/shutdown/shutdown") }}
       {{- if .Values.graylog.sidecarContainers }}
         {{ toYaml .Values.graylog.sidecarContainers | nindent 8 }}
       {{- end }}
