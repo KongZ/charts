@@ -163,8 +163,6 @@ data:
     export GRAYLOG_PLUGIN_DIR=${GRAYLOG_HOME}/plugin
     # Graylog 4.0.2 images move plugin dir to `plugins-default`
     find ${GRAYLOG_HOME}/plugins-default/ -type f -exec cp {} ${GRAYLOG_PLUGIN_DIR} \;
-    # Looking for Master IP
-    retry=1
     # Download plugins
   {{- if .Values.graylog.plugins.proxy.enabled }}
     export https_proxy={{ .Values.graylog.plugins.proxy.host }}
