@@ -141,7 +141,9 @@ data:
     transport_email_web_interface_url = {{ $externalUri }}
   {{- end }}
     content_packs_dir = /usr/share/graylog/data/contentpacks
+  {{- if semverCompare "~5" ( $graylogVersion ) }}
     content_packs_auto_load = grok-patterns.json
+  {{- end}}
     proxied_requests_thread_pool_size = 32
   {{- if .Values.graylog.metrics.enabled }}
     prometheus_exporter_enabled = true
@@ -199,6 +201,15 @@ data:
   {{- end }}
     # Start Graylog
     echo "Starting graylog"
+    if [[ ! -z "${POD_NAME}" ]]
+    then
+      if echo "${POD_NAME}" | grep "\\-0$" >/dev/null
+      then
+        export GRAYLOG_IS_LEADER="true"
+      else
+        export GRAYLOG_IS_LEADER="false"
+      fi
+    fi
     # Original docker-entrypoint.sh in Graylog Docker will error while executing since you can't chown readonly files in `config`
     # exec /docker-entrypoint.sh graylog
   {{- if or (.Values.graylog.opensearch.uriSecretKey) (.Values.graylog.mongodb.uriSecretKey) }}
@@ -209,6 +220,7 @@ data:
     export GRAYLOG_ELASTICSEARCH_VERSION={{ .Values.graylog.opensearch.version }}
   {{- end }}
     echo "Graylog Home ${GRAYLOG_HOME}"
+    echo "Graylog Leader ${GRAYLOG_IS_LEADER}"
     echo "Graylog Plugin Dir ${GRAYLOG_PLUGIN_DIR}"
     echo "Graylog Elasticsearch Version ${GRAYLOG_ELASTICSEARCH_VERSION}"
     "${JAVA_HOME}/bin/java" \
