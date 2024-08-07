@@ -281,4 +281,7 @@ spec:
         resources:
           requests:
             storage: "{{ .Values.graylog.persistence.size }}"
+    {{- if .Values.graylog.extraVolumeClaimTemplates }}
+    {{ toYaml .Values.graylog.extraVolumeClaimTemplates | nindent 4 }}
+    {{- end }}
 {{- end }}
