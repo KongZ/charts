@@ -55,7 +55,7 @@ graylog:
   ##
   image:
     repository: "graylog/graylog"
-    tag: "6.2.2"
+    tag: "6.2.3"
     pullPolicy: "IfNotPresent"
 
   ## Graylog default Java option
