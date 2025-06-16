@@ -448,6 +448,11 @@ graylog:
     uriSecretKey: ""
     uriSSL: false
 
+    # OpenSearch authentication
+    username: "admin"
+    password: "{{ .Values.opensearch.adminPassword }}"  # Strong password meeting requirements: uppercase, lowercase, number, special char, >8 chars
+
+
   mongodb:
     ## MongoDB connection string
     ## See https://docs.mongodb.com/manual/reference/connection-string/ for details
@@ -589,11 +594,15 @@ graylog:
 
 opensearch:
   enabled: true
+  # Define the OpenSearch admin password
+  adminPassword: "Graylog@2025"  # Strong password meeting requirements: uppercase, lowercase, number, special char, >8 chars
   extraEnvs:
     - name: plugins.security.ssl.http.enabled
       value: "false"
     - name: plugins.security.disabled
       value: "true"
+    - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
+      value: "{{ .Values.opensearch.adminPassword }}"
   ## Set default resource very low. This help reduce resources usage on GitHub Action when performing chart-testing.
   opensearchJavaOpts: "-Xmx128M -Xms128M"
   resources:
