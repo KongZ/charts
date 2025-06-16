@@ -203,7 +203,11 @@ graylog:
     port: 9000
     ## Add additional ports for the service/statefulset to expose
     ##
-    ports: []
+    ports:
+      - name: gelf
+        port: 12201
+        targetPort: 12201
+        protocol: TCP
 
     headless:
       ## Add suffix to headless service name
@@ -412,6 +416,11 @@ graylog:
   ## Graylog root user name
   ##
   rootUsername: "admin"
+
+  ## Graylog root password
+  ## Defaults to a random 16-character alphanumeric string if not set
+  ##
+  # rootPassword: ""
 
   ## Graylog root email
   ##
