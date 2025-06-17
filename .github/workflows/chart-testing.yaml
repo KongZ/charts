@@ -2,6 +2,21 @@ name: Lint and Test Charts
 
 on: pull_request
 
+permissions:
+  actions: read
+  attestations: none
+  checks: write
+  contents: write
+  deployments: read
+  id-token: none
+  issues: none
+  models: none
+  packages: none
+  pages: write
+  pull-requests: read
+  security-events: read
+  statuses: read
+
 jobs:
   lint-test:
     runs-on: ubuntu-latest
@@ -26,7 +41,7 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
+          python-version: "3.13"
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2.7.0

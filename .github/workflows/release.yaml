@@ -5,6 +5,21 @@ on:
     branches:
       - main
 
+permissions:
+  actions: read
+  attestations: none
+  checks: write
+  contents: write
+  deployments: write
+  id-token: none
+  issues: none
+  models: none
+  packages: none
+  pages: write
+  pull-requests: read
+  security-events: read
+  statuses: read
+
 jobs:
   release:
     # depending on default permission settings for your org (contents being read-only or read-write for workloads), you will have to add permissions
