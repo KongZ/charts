@@ -8,12 +8,11 @@ on:
 permissions:
   actions: read
   attestations: none
-  checks: none
+  checks: write
   contents: write
   deployments: read
   id-token: none
   issues: none
-  models: none
   packages: none
   pages: write
   pull-requests: read

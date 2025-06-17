@@ -13,7 +13,6 @@ permissions:
   deployments: none
   id-token: none
   issues: none
-  models: none
   packages: none
   pages: write
   pull-requests: read
