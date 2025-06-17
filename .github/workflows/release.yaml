@@ -5,6 +5,20 @@ on:
     branches:
       - main
 
+permissions:
+  actions: read
+  attestations: none
+  checks: write
+  contents: write
+  deployments: write
+  id-token: none
+  issues: none
+  packages: none
+  pages: write
+  pull-requests: read
+  security-events: read
+  statuses: read
+
 jobs:
   release:
     # depending on default permission settings for your org (contents being read-only or read-write for workloads), you will have to add permissions
@@ -14,7 +28,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -24,9 +38,9 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Install Helm
-        uses: azure/setup-helm@v3
+        uses: azure/setup-helm@v4.3.0
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.2.1
+        uses: helm/chart-releaser-action@v1.7.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

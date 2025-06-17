@@ -29,13 +29,15 @@ We would like these checks to pass before we even continue reviewing your change
 
 # Which issue this PR fixes
 
-*(optional, in `fixes #<issue number>(, fixes #<issue_number>, ...)` format, will close that issue when PR gets merged)*
+_(optional, in `fixes #<issue number>(, fixes #<issue_number>, ...)` format, will close that issue when PR gets merged)_
 
 - fixes #
 
 # Special notes for your reviewer
 
 # Checklist
+
 <!-- [Place an '[x]' (no spaces) in all applicable fields. Please remove unrelated fields.] -->
+
 - [ ] [DCO](https://github.com/KongZ/charts/blob/main/CONTRIBUTING.md#sign-off-your-work) signed
 - [ ] Chart Version bumped
