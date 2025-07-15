@@ -2,6 +2,44 @@ apiVersion: v1
 entries:
   graylog:
   - apiVersion: v2
+    appVersion: 6.3.1
+    created: "2025-07-15T03:04:32.282774106Z"
+    dependencies:
+    - name: mongodb
+      repository: https://charts.bitnami.com/bitnami
+      tags:
+      - install-mongodb
+      version: 16.5.21
+    - name: opensearch
+      repository: https://opensearch-project.github.io/helm-charts
+      tags:
+      - install-opensearch
+      version: 2.34.0
+    description: Graylog is the centralized log management solution built to open
+      standards for capturing, storing, and enabling real-time analysis of terabytes
+      of machine data.
+    digest: 4bc549cf547e2a7d6514fb1d16591c73256a58d78cc98253f392c6e9c428ae3e
+    home: https://www.graylog.org
+    icon: https://global-uploads.webflow.com/5a218ef7897bf400019e2f16/5a218ef7897bf400019e2f60_logo-graylog.png
+    keywords:
+    - graylog
+    - logs
+    - syslog
+    - gelf
+    maintainers:
+    - email: goonohc@gmail.com
+      name: KongZ
+    - email: lj@luizjr.dev
+      name: LuizJr
+      url: https://luizjr.dev
+    name: graylog
+    sources:
+    - https://github.com/KongZ/charts
+    type: application
+    urls:
+    - https://github.com/KongZ/charts/releases/download/graylog-2.3.16/graylog-2.3.16.tgz
+    version: 2.3.16
+  - apiVersion: v2
     appVersion: 6.3.0
     created: "2025-07-03T03:59:34.398427893Z"
     dependencies:
@@ -1961,4 +1999,4 @@ entries:
     urls:
     - https://github.com/KongZ/charts/releases/download/1.7.0/graylog-1.7.0.tgz
     version: 1.7.0
-generated: "2025-07-03T03:59:34.398632699Z"
+generated: "2025-07-15T03:04:32.282973271Z"
