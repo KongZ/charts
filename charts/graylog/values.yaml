@@ -434,6 +434,10 @@ graylog:
   ##
   existingRootSecret: ""
 
+  ## Enable CORS support
+  ##
+  httpEnableCors: false
+
   opensearch:
     ## Major version of the Elasticsearch version used.
     ## It is required by Graylog 4. See https://docs.graylog.org/en/4.0/pages/configuration/elasticsearch.html#available-elasticsearch-configuration-tunables
