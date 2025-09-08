@@ -79,6 +79,7 @@ data:
     root_username = {{ .Values.graylog.rootUsername }}
     root_email = {{ .Values.graylog.rootEmail }}
     root_timezone = {{ default "UTC" .Values.graylog.rootTimezone }}
+    http_enable_cors = {{ .Values.graylog.httpEnableCors }}
   {{- $externalUri := include "graylog.url" . }}
   {{ $graylogVersion := .Values.graylog.image.tag | default .Chart.AppVersion }}
   {{- if semverCompare "~2" ( $graylogVersion ) }}
