@@ -606,7 +606,11 @@ opensearch:
       value: "true"
     - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
       value: "Graylog@2024"  # Strong password meeting requirements: uppercase, lowercase, number, special char, >8 chars
+  ## Set number of OpenSearch nodes
+  ##
+  replicas: 3
   ## Set default resource very low. This help reduce resources usage on GitHub Action when performing chart-testing.
+  ##
   opensearchJavaOpts: "-Xmx128M -Xms128M"
   resources:
     requests:
@@ -621,7 +625,17 @@ opensearch:
   #       storage: 30Gi # default 30Gi
 
 # Specify Mongodb settings. Ignore this section if you install MongoDB manually.
+#
 mongodb:
+  ## Default Bitnami MongoDB image in the chart does not support Arm64 architecture. 
+  ## Uncomment the following section `image` and `global.security.allowInsecureImages` to use another Bitnami MongoDB image.
+  ##
+  # image:
+  #   repository: bitnamisecure/mongodb
+  #   tag: latest
+  # global:
+  #   security:
+  #     allowInsecureImages: true
   architecture: "replicaset"
   useStatefulSet: true
   replicaCount: 1
