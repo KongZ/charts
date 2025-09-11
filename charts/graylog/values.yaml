@@ -627,7 +627,7 @@ opensearch:
 # Specify Mongodb settings. Ignore this section if you install MongoDB manually.
 #
 mongodb:
-  ## Default Bitnami MongoDB image in the chart does not support Arm64 architecture. 
+  ## Default Bitnami MongoDB image in the chart does not support Arm64 architecture.
   ## Uncomment the following section `image` and `global.security.allowInsecureImages` to use another Bitnami MongoDB image.
   ##
   # image:
