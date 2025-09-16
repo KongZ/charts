@@ -225,7 +225,7 @@ data:
     echo "Graylog Leader ${GRAYLOG_IS_LEADER}"
     echo "Graylog Plugin Dir ${GRAYLOG_PLUGIN_DIR}"
     echo "Graylog Elasticsearch Version ${GRAYLOG_ELASTICSEARCH_VERSION}"
-    "${JAVA_HOME}/bin/java" \
+    exec "${JAVA_HOME}/bin/java" \
       ${GRAYLOG_SERVER_JAVA_OPTS} \
       -jar \
       -Dlog4j.configurationFile=${GRAYLOG_HOME}/config/log4j2.xml \
