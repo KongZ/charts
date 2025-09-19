@@ -37,6 +37,7 @@ jobs:
           helm repo add stable https://charts.helm.sh/stable
           helm repo add kongz https://charts.kong-z.com
           helm repo add opensearch https://opensearch-project.github.io/helm-charts/
+          helm repo add mongodb https://mongodb.github.io/helm-charts
 
       - uses: actions/setup-python@v5
         with:
