@@ -65,5 +65,9 @@ jobs:
         run: kubectl create namespace ct
         if: steps.list-changed.outputs.changed == 'true'
 
+      - name: Install MongoDB Community Operator CRDs
+        run: helm install --create-namespace --namespace ct community-operator-crds mongodb/community-operator-crds
+        if: steps.list-changed.outputs.changed == 'true'
+
       - name: Run chart-testing (install)
         run: ct install --target-branch main --namespace ct
