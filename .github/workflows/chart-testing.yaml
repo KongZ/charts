@@ -37,6 +37,7 @@ jobs:
           helm repo add stable https://charts.helm.sh/stable
           helm repo add kongz https://charts.kong-z.com
           helm repo add opensearch https://opensearch-project.github.io/helm-charts/
+          helm repo add mongodb https://mongodb.github.io/helm-charts
 
       - uses: actions/setup-python@v5
         with:
@@ -62,6 +63,10 @@ jobs:
 
       - name: Create kubernetes namespace
         run: kubectl create namespace ct
+        if: steps.list-changed.outputs.changed == 'true'
+
+      - name: Install MongoDB Community Operator CRDs
+        run: helm install --create-namespace --namespace ct community-operator-crds mongodb/community-operator-crds
         if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
