@@ -10,12 +10,12 @@ This chart requires the following charts before install Graylog
 1. MongoDB
 2. Opensearch
 
-Since chart version 2.5.0, we replaced Bitnami MongoDB with the official MongoDB image. You must manually install the MongoDB Operator CRD before installing the Graylog chart with dependencies. 
+Since chart version 2.5.0, we replaced Bitnami MongoDB with the official MongoDB image. You must manually install the MongoDB Operator CRD before installing the Graylog chart with dependencies.
 
 Install MongoDB CRDs only first installation. You can skip CRD step when upgrade.
 
 ```bash
-helm install --create-namespace --namespace graylog community-operator-crds mongodb/community-operator-crds 
+helm install --create-namespace --namespace graylog community-operator-crds mongodb/community-operator-crds
 ```
 
 To install the Graylog Chart with all dependencies
@@ -51,7 +51,7 @@ spec:
   members: 3
   security:
     authentication:
-      modes: 
+      modes:
         - SCRAM
   type: ReplicaSet
   users:
@@ -68,7 +68,7 @@ spec:
   version: 6.0.25
 ```
 
-For complete MongoDB Operator installation separately, see https://github.com/mongodb/mongodb-kubernetes-operator
+For complete MongoDB Operator installation separately, see [mongodb-kubernetes-operator](https://github.com/mongodb/mongodb-kubernetes-operator)
 
 Note: There are many alternative MongoDB available on [artifacthub.io](https://artifacthub.io/packages/search?page=1&ts_query_web=mongodb). If you found the `mongodb community operator` is not suitable, you can use another MongoDB chart. Modify `graylog.mongodb.uri` to match your MongoDB endpoint.
 
@@ -86,7 +86,7 @@ helm repo add opensearch https://opensearch-project.github.io/helm-charts/
 helm install --namespace "graylog" opensearch opensearch/opensearch
 ```
 
-The Opensearch installation command above will install all Opensearch nodes types in single node. 
+The Opensearch installation command above will install all Opensearch nodes types in single node.
 It is strongly recommend to follow the Opensearch [guide](https://docs.opensearch.org/latest/install-and-configure/install-opensearch/helm/) to install dedicated node on production.
 
 Note: There are many alternative Opensearch available on [artifacthub.io](https://artifacthub.io/packages/search?page=1&ts_query_web=Opensearch). If you found the `stable/opensearch` is not suitable, you can search other charts from GitHub repositories.
@@ -400,7 +400,9 @@ Note: All uncommitted logs will be permanently DELETED when this value is true
 
 ---
 
-If you are encounter "Failed to decrypt values from MongoDB. This means that your password_secret has been changed or there are some nodes in your cluster that are using a different password_secret to the one configured on this node. Secrets have to be configured to the same value on every node and can't be changed afterwards.", this mean that you may use password in Secret has been changed from previous deployment.
+If you are encounter "Failed to decrypt values from MongoDB. 
+This means that your password_secret has been changed or there are some nodes in your cluster that are using a different password_secret to the one configured on this node. 
+Secrets have to be configured to the same value on every node and can't be changed afterwards.", this mean that you may use password in Secret has been changed from previous deployment.
 
 
 [1]: https://www.graylog.org/

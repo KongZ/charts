@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: {{ template "graylog.fullname" . }}
   labels:
-{{ include "graylog.metadataLabels" . | indent 4 }}
+    {{ include "graylog.metadataLabels" . | nindent 4 }}
 data:
   log4j2.xml: |-
     <?xml version="1.0" encoding="UTF-8"?>
