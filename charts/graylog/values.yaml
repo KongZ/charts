@@ -670,6 +670,10 @@ mongodb:
       user: "graylog"
       ## If empty, a random 20-character alphanumeric string will be generated
       password: ""
+  ## Node labels for for MongoDB pod assignment
+  ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
+  ##
+  nodeSelector: {}      
   persistence:
     size: "8Gi"
 
