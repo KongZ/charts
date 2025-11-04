@@ -89,7 +89,7 @@ graylog:
   ##       fieldPath: status.podIP
   ## - name: SERVICE_8000_NAME
   ##   value: servicename
-  envRaw: {}
+  envRaw: []
 
   ## Pod affinity
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
@@ -670,6 +670,10 @@ mongodb:
       user: "graylog"
       ## If empty, a random 20-character alphanumeric string will be generated
       password: ""
+  ## Node labels for for MongoDB pod assignment
+  ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
+  ##
+  nodeSelector: {}      
   persistence:
     size: "8Gi"
 
