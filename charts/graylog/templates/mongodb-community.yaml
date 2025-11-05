@@ -27,6 +27,13 @@ spec:
     connectTimeoutMS: "300000"
   statefulSet:
     spec:
+      template:
+        spec:
+{{- if .Values.mongodb.nodeSelector }}
+          # Assign MongoDB pods to nodes with specific labels
+          nodeSelector:
+{{ toYaml .Values.mongodb.nodeSelector | indent 12 }}
+{{- end }}
       volumeClaimTemplates:
         - metadata:
             name: data-volume
