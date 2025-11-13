@@ -63,7 +63,7 @@ graylog:
   ##
   image:
     repository: "graylog/graylog"
-    tag: "6.3.5"
+    tag: "7.0.0"
     pullPolicy: "IfNotPresent"
 
   ## Graylog default Java option
@@ -665,7 +665,7 @@ mongodb:
     ##
     install: true
     replicas: 3
-    version: "6.0.25"
+    version: "7.0.25"
     auth:
       user: "graylog"
       ## If empty, a random 20-character alphanumeric string will be generated
