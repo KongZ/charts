@@ -34,6 +34,14 @@ spec:
           nodeSelector:
 {{ toYaml .Values.mongodb.nodeSelector | indent 12 }}
 {{- end }}
+{{- if .Values.mongodb.affinity }}
+          affinity:
+{{ toYaml .Values.mongodb.affinity | indent 12 }}
+{{- end }}
+{{- if .Values.mongodb.tolerations }}
+          tolerations:
+{{ toYaml .Values.mongodb.tolerations | indent 12 }}
+{{- end }}
       volumeClaimTemplates:
         - metadata:
             name: data-volume
