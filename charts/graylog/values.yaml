@@ -693,7 +693,7 @@ mongodb:
     size: "8Gi"
 
   ## Configure MongoDB containers
-  containers: {}
+  containers: []
   #  - name: mongod
   #    resources:
   #      limits:
@@ -713,7 +713,7 @@ mongodb:
 
 
   ## Configure MongoDB init containers
-  initContainers: {}
+  initContainers: []
   #  - name: mongodb-agent-readinessprobe
   #    resources:
   #      limits:
