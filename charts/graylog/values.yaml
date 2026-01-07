@@ -665,7 +665,7 @@ mongodb:
     ##
     install: true
     replicas: 3
-    version: "7.0.25"
+    version: "7.0.28"
     auth:
       user: "graylog"
       ## If empty, a random 20-character alphanumeric string will be generated
