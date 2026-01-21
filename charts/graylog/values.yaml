@@ -546,7 +546,9 @@ graylog:
     ## Init Container image
     ##
     image:
+      registry: "docker.io"
       repository: "alpine"
+      tag: "3.18.0"
       pullPolicy: "IfNotPresent"
 
     # Additional environment variables to be added to Graylog initContainer
