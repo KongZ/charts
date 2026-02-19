@@ -1,7 +1,7 @@
 apiVersion: v2
 name: graylog
 home: https://www.graylog.org
-version: 3.0.12
+version: 3.0.13
 appVersion: 7.0.4
 description: Graylog is the centralized log management solution built to open
   standards for capturing, storing, and enabling real-time analysis of terabytes
