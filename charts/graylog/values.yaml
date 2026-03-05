@@ -673,7 +673,7 @@ mongodb:
   ## Node labels for for MongoDB pod assignment
   ## Ref: https://kubernetes.io/docs/user-guide/node-selection/
   ##
-  nodeSelector: {}      
+  nodeSelector: {}
 
   ## Pod affinity
   ## ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
@@ -691,7 +691,7 @@ mongodb:
     #   effect: "NoSchedule|PreferNoSchedule|NoExecute(1.6 only)"
   persistence:
     size: "8Gi"
-    #logsSize: "2Gi"
+    # logsSize: "2Gi"
 
   ## Configure MongoDB containers
   containers: []

@@ -1,0 +1,8 @@
+# CI test values for chart-testing (ct install).
+# These override defaults to reduce resource usage in GitHub Actions runners.
+opensearch:
+  replicas: 1
+
+mongodb:
+  community:
+    replicas: 1
