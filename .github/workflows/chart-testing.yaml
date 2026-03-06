@@ -72,5 +72,59 @@ jobs:
             --wait --timeout 10m
         if: steps.list-changed.outputs.changed == 'true'
 
+      - name: Pre-provision MongoDB for CI
+        if: steps.list-changed.outputs.changed == 'true'
+        run: |
+          kubectl create secret generic ci-mongodb-password \
+            --namespace ct \
+            --from-literal=password=graylog
+
+          kubectl apply -f - <<'EOF'
+          apiVersion: mongodbcommunity.mongodb.com/v1
+          kind: MongoDBCommunity
+          metadata:
+            name: ci-mongodb
+            namespace: ct
+          spec:
+            members: 1
+            type: ReplicaSet
+            version: "7.0.28"
+            security:
+              authentication:
+                modes: ["SCRAM"]
+            users:
+              - name: graylog
+                db: graylog
+                passwordSecretRef:
+                  name: ci-mongodb-password
+                roles:
+                  - name: readWrite
+                    db: graylog
+                  - name: clusterMonitor
+                    db: admin
+                scramCredentialsSecretName: ci-mongodb-scram
+            additionalConnectionStringConfig:
+              authSource: "graylog"
+            statefulSet:
+              spec:
+                volumeClaimTemplates:
+                  - metadata:
+                      name: data-volume
+                    spec:
+                      resources:
+                        requests:
+                          storage: 1Gi
+                  - metadata:
+                      name: logs-volume
+                    spec:
+                      resources:
+                        requests:
+                          storage: 1Gi
+          EOF
+
+          echo "Waiting for MongoDB StatefulSet to be created by the operator..."
+          until kubectl get statefulset ci-mongodb --namespace ct 2>/dev/null; do sleep 5; done
+          kubectl rollout status statefulset/ci-mongodb --namespace ct --timeout=20m
+
       - name: Run chart-testing (install)
-        run: ct install --target-branch main --namespace ct --timeout 30m
+        run: ct install --target-branch main --namespace ct

@@ -2,8 +2,7 @@
 # These override defaults to reduce resource usage in GitHub Actions runners.
 tags:
   # Disable MongoDB Community Operator subchart in CI.
-  # The operator is pre-installed by the workflow before ct install runs,
-  # so it is already ready when the MongoDBCommunity object is created.
+  # The operator is pre-installed and MongoDB is pre-provisioned by the workflow.
   install-mongodb: false
 
 graylog:
@@ -11,17 +10,19 @@ graylog:
   # G1GC fails with EPERM in kind's restricted seccomp environment.
   javaOpts: "-Dlog4j2.formatMsgNoLookups=true -Djdk.tls.acknowledgeCloseNotify=true -XX:+UnlockExperimentalVMOptions -XX:-OmitStackTraceInFastThrow -XX:+UseSerialGC -server"
   heapSize: "512m"
-  # MongoDB agent image pull + replicaset formation takes several minutes in CI.
-  # Extend the startup window to match the ct --timeout of 1800s.
   startupProbe:
     periodSeconds: 60
     failureThreshold: 30
     successThreshold: 1
     timeoutSeconds: 5
+  mongodb:
+    # Point to the MongoDB instance pre-provisioned by the workflow (fixed name: ci-mongodb).
+    # The community operator creates service <name>-svc and replicaset named <name>.
+    uri: "mongodb://graylog:graylog@ci-mongodb-0.ci-mongodb-svc.ct.svc.cluster.local:27017/graylog?replicaSet=ci-mongodb&authSource=graylog"
 
 mongodb:
   community:
-    replicas: 1
+    install: false
 
 opensearch:
   replicas: 1
