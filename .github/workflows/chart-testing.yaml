@@ -134,6 +134,7 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
         run: |
           helm install opensearch-cluster opensearch/opensearch \
+            --version 2.35.1 \
             --namespace ct \
             --set replicas=1 \
             --set "extraEnvs[0].name=plugins.security.ssl.http.enabled" \
