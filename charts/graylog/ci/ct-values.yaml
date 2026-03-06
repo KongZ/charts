@@ -7,9 +7,17 @@ tags:
   install-opensearch: false
 
 graylog:
-  # Replace G1GC with SerialGC — single-threaded GC, no pthread_create calls.
-  # G1GC fails with EPERM in kind's restricted seccomp environment.
-  javaOpts: "-Dlog4j2.formatMsgNoLookups=true -Djdk.tls.acknowledgeCloseNotify=true -XX:+UnlockExperimentalVMOptions -XX:-OmitStackTraceInFastThrow -XX:+UseSerialGC -server"
+  # kind's RuntimeDefault seccomp profile blocks clone() syscalls needed by the JVM,
+  # causing pthread_create EPERM even for core VM threads. Unconfined allows all syscalls.
+  securityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: false
+    runAsNonRoot: true
+    seccompProfile:
+      type: Unconfined
+    runAsUser: 1100
+    runAsGroup: 1100
+  javaOpts: "-Dlog4j2.formatMsgNoLookups=true -Djdk.tls.acknowledgeCloseNotify=true -XX:+UnlockExperimentalVMOptions -XX:-OmitStackTraceInFastThrow -server"
   heapSize: "512m"
   startupProbe:
     periodSeconds: 60

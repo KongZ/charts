@@ -148,4 +148,4 @@ jobs:
             --wait --timeout 15m
 
       - name: Run chart-testing (install)
-        run: ct install --target-branch main --namespace ct
+        run: ct install --target-branch main --namespace ct --helm-extra-args "--timeout 1800s"
