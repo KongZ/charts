@@ -73,6 +73,7 @@ jobs:
         run: |
           helm install community-operator mongodb/community-operator \
             --namespace ct \
+            --skip-crds \
             --wait --timeout 10m
         if: steps.list-changed.outputs.changed == 'true'
 
