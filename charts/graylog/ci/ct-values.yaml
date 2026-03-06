@@ -1,9 +1,10 @@
 # CI test values for chart-testing (ct install).
 # These override defaults to reduce resource usage in GitHub Actions runners.
 tags:
-  # Disable MongoDB Community Operator subchart in CI.
-  # The operator is pre-installed and MongoDB is pre-provisioned by the workflow.
+  # Both subcharts are pre-installed by the workflow before ct install runs,
+  # so they are fully ready when Graylog starts.
   install-mongodb: false
+  install-opensearch: false
 
 graylog:
   # Replace G1GC with SerialGC — single-threaded GC, no pthread_create calls.
@@ -23,6 +24,3 @@ graylog:
 mongodb:
   community:
     install: false
-
-opensearch:
-  replicas: 1

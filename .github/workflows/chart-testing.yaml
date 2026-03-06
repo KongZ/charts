@@ -130,5 +130,22 @@ jobs:
           until kubectl get secret ci-mongodb-graylog-graylog --namespace ct 2>/dev/null; do sleep 10; done
           echo "MongoDB is fully provisioned and ready."
 
+      - name: Pre-install OpenSearch for CI
+        if: steps.list-changed.outputs.changed == 'true'
+        run: |
+          helm install opensearch-cluster opensearch/opensearch \
+            --namespace ct \
+            --set replicas=1 \
+            --set "extraEnvs[0].name=plugins.security.ssl.http.enabled" \
+            --set "extraEnvs[0].value=false" \
+            --set "extraEnvs[1].name=plugins.security.disabled" \
+            --set "extraEnvs[1].value=true" \
+            --set "extraEnvs[2].name=OPENSEARCH_INITIAL_ADMIN_PASSWORD" \
+            --set "extraEnvs[2].value=Graylog@2024" \
+            --set "opensearchJavaOpts=-Xmx128M -Xms128M" \
+            --set "resources.requests.cpu=100m" \
+            --set "resources.requests.memory=100Mi" \
+            --wait --timeout 15m
+
       - name: Run chart-testing (install)
         run: ct install --target-branch main --namespace ct
