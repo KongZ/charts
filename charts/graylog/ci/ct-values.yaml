@@ -1,22 +1,27 @@
 # CI test values for chart-testing (ct install).
 # These override defaults to reduce resource usage in GitHub Actions runners.
+tags:
+  # Disable MongoDB Community Operator subchart in CI.
+  # We pre-install a standalone bitnami/mongodb in the workflow instead.
+  install-mongodb: false
+
 graylog:
   # Replace G1GC with SerialGC — single-threaded GC, no pthread_create calls.
   # G1GC fails with EPERM in kind's restricted seccomp environment.
   javaOpts: "-Dlog4j2.formatMsgNoLookups=true -Djdk.tls.acknowledgeCloseNotify=true -XX:+UnlockExperimentalVMOptions -XX:-OmitStackTraceInFastThrow -XX:+UseSerialGC -server"
   heapSize: "512m"
-  # MongoDB Community Operator creates the connection string secret asynchronously.
-  # In kind (CI), this can take 5-10 minutes. Extend the startup window to 30 min
-  # to match the ct.yaml --timeout 1800s.
   startupProbe:
     periodSeconds: 60
     failureThreshold: 30
     successThreshold: 1
     timeoutSeconds: 5
-
-opensearch:
-  replicas: 1
+  mongodb:
+    # Point to the pre-deployed standalone bitnami/mongodb in the ct namespace.
+    uri: "mongodb://graylog:graylog@mongodb:27017/graylog"
 
 mongodb:
   community:
-    replicas: 1
+    install: false
+
+opensearch:
+  replicas: 1

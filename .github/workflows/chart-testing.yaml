@@ -69,5 +69,16 @@ jobs:
         run: helm install --create-namespace --namespace ct community-operator-crds mongodb/community-operator-crds
         if: steps.list-changed.outputs.changed == 'true'
 
+      - name: Install MongoDB for CI testing
+        run: |
+          helm install mongodb bitnami/mongodb \
+            --namespace ct \
+            --set auth.rootPassword=graylog \
+            --set auth.username=graylog \
+            --set auth.password=graylog \
+            --set auth.database=graylog \
+            --wait --timeout 5m
+        if: steps.list-changed.outputs.changed == 'true'
+
       - name: Run chart-testing (install)
         run: ct install --target-branch main --namespace ct
