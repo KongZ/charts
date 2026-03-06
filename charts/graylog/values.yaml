@@ -634,8 +634,9 @@ opensearch:
       value: "false"
     - name: plugins.security.disabled
       value: "true"
+    ## Strong password meeting requirements: uppercase, lowercase, number, special char, >8 chars
     - name: OPENSEARCH_INITIAL_ADMIN_PASSWORD
-      value: "Graylog@2024" # Strong password meeting requirements: uppercase, lowercase, number, special char, >8 chars
+      value: "Graylog@2024"
   ## Set number of OpenSearch nodes
   ##
   replicas: 3
