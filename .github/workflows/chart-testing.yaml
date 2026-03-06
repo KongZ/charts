@@ -65,15 +65,10 @@ jobs:
         run: kubectl create namespace ct
         if: steps.list-changed.outputs.changed == 'true'
 
-      - name: Install MongoDB Community Operator CRDs
-        run: helm install --create-namespace --namespace ct community-operator-crds mongodb/community-operator-crds
-        if: steps.list-changed.outputs.changed == 'true'
-
       - name: Pre-install MongoDB Community Operator
         run: |
           helm install community-operator mongodb/community-operator \
             --namespace ct \
-            --skip-crds \
             --wait --timeout 10m
         if: steps.list-changed.outputs.changed == 'true'
 
