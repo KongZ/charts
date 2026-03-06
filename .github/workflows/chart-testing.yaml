@@ -126,5 +126,9 @@ jobs:
           until kubectl get statefulset ci-mongodb --namespace ct 2>/dev/null; do sleep 5; done
           kubectl rollout status statefulset/ci-mongodb --namespace ct --timeout=20m
 
+          echo "Waiting for MongoDB user to be provisioned (secret ci-mongodb-graylog-graylog)..."
+          until kubectl get secret ci-mongodb-graylog-graylog --namespace ct 2>/dev/null; do sleep 10; done
+          echo "MongoDB is fully provisioned and ready."
+
       - name: Run chart-testing (install)
         run: ct install --target-branch main --namespace ct
