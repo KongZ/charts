@@ -1,5 +1,11 @@
 # CI test values for chart-testing (ct install).
 # These override defaults to reduce resource usage in GitHub Actions runners.
+graylog:
+  # Replace G1GC with SerialGC — single-threaded GC, no pthread_create calls.
+  # G1GC fails with EPERM in kind's restricted seccomp environment.
+  javaOpts: "-Dlog4j2.formatMsgNoLookups=true -Djdk.tls.acknowledgeCloseNotify=true -XX:+UnlockExperimentalVMOptions -XX:-OmitStackTraceInFastThrow -XX:+UseSerialGC -server"
+  heapSize: "512m"
+
 opensearch:
   replicas: 1
 
