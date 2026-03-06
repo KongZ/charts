@@ -5,6 +5,14 @@ graylog:
   # G1GC fails with EPERM in kind's restricted seccomp environment.
   javaOpts: "-Dlog4j2.formatMsgNoLookups=true -Djdk.tls.acknowledgeCloseNotify=true -XX:+UnlockExperimentalVMOptions -XX:-OmitStackTraceInFastThrow -XX:+UseSerialGC -server"
   heapSize: "512m"
+  # MongoDB Community Operator creates the connection string secret asynchronously.
+  # In kind (CI), this can take 5-10 minutes. Extend the startup window to 30 min
+  # to match the ct.yaml --timeout 1800s.
+  startupProbe:
+    periodSeconds: 60
+    failureThreshold: 30
+    successThreshold: 1
+    timeoutSeconds: 5
 
 opensearch:
   replicas: 1
