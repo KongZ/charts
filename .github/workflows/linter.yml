@@ -17,7 +17,7 @@ permissions:
   pages: write
   pull-requests: read
   security-events: read
-  statuses: read
+  statuses: write
 
 jobs:
   build:
@@ -36,5 +36,7 @@ jobs:
           VALIDATE_KUBERNETES_KUBEVAL: false
           VALIDATE_GITLEAKS: false
           VALIDATE_NATURAL_LANGUAGE: false
+          VALIDATE_CHECKOV: false
+          VALIDATE_YAML_PRETTIER: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

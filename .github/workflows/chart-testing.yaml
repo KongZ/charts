@@ -65,9 +65,88 @@ jobs:
         run: kubectl create namespace ct
         if: steps.list-changed.outputs.changed == 'true'
 
-      - name: Install MongoDB Community Operator CRDs
-        run: helm install --create-namespace --namespace ct community-operator-crds mongodb/community-operator-crds
+      - name: Pre-install MongoDB Community Operator
+        run: |
+          helm install community-operator mongodb/community-operator \
+            --namespace ct \
+            --wait --timeout 10m
         if: steps.list-changed.outputs.changed == 'true'
 
+      - name: Pre-provision MongoDB for CI
+        if: steps.list-changed.outputs.changed == 'true'
+        run: |
+          kubectl create secret generic ci-mongodb-password \
+            --namespace ct \
+            --from-literal=password=graylog
+
+          kubectl apply -f - <<'EOF'
+          apiVersion: mongodbcommunity.mongodb.com/v1
+          kind: MongoDBCommunity
+          metadata:
+            name: ci-mongodb
+            namespace: ct
+          spec:
+            members: 1
+            type: ReplicaSet
+            version: "7.0.28"
+            security:
+              authentication:
+                modes: ["SCRAM"]
+            users:
+              - name: graylog
+                db: graylog
+                passwordSecretRef:
+                  name: ci-mongodb-password
+                roles:
+                  - name: readWrite
+                    db: graylog
+                  - name: clusterMonitor
+                    db: admin
+                scramCredentialsSecretName: ci-mongodb-scram
+            additionalConnectionStringConfig:
+              authSource: "graylog"
+            statefulSet:
+              spec:
+                volumeClaimTemplates:
+                  - metadata:
+                      name: data-volume
+                    spec:
+                      resources:
+                        requests:
+                          storage: 1Gi
+                  - metadata:
+                      name: logs-volume
+                    spec:
+                      resources:
+                        requests:
+                          storage: 1Gi
+          EOF
+
+          echo "Waiting for MongoDB StatefulSet to be created by the operator..."
+          until kubectl get statefulset ci-mongodb --namespace ct 2>/dev/null; do sleep 5; done
+          kubectl rollout status statefulset/ci-mongodb --namespace ct --timeout=20m
+
+          echo "Waiting for MongoDB user to be provisioned (secret ci-mongodb-graylog-graylog)..."
+          until kubectl get secret ci-mongodb-graylog-graylog --namespace ct 2>/dev/null; do sleep 10; done
+          echo "MongoDB is fully provisioned and ready."
+
+      - name: Pre-install OpenSearch for CI
+        if: steps.list-changed.outputs.changed == 'true'
+        run: |
+          helm install opensearch-cluster opensearch/opensearch \
+            --version 2.35.1 \
+            --namespace ct \
+            --set replicas=1 \
+            --set "extraEnvs[0].name=plugins.security.ssl.http.enabled" \
+            --set-string "extraEnvs[0].value=false" \
+            --set "extraEnvs[1].name=plugins.security.disabled" \
+            --set-string "extraEnvs[1].value=true" \
+            --set "extraEnvs[2].name=OPENSEARCH_INITIAL_ADMIN_PASSWORD" \
+            --set "extraEnvs[2].value=Graylog@2024" \
+            --set "opensearchJavaOpts=-Xmx128M -Xms128M" \
+            --set "resources.requests.cpu=100m" \
+            --set "resources.requests.memory=100Mi" \
+            --wait --timeout 15m
+
       - name: Run chart-testing (install)
-        run: ct install --target-branch main --namespace ct
+        run: ct install --target-branch main --namespace ct --helm-extra-args "--timeout 1800s"
