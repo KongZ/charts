@@ -17,7 +17,7 @@ permissions:
   pages: write
   pull-requests: read
   security-events: read
-  statuses: read
+  statuses: write
 
 jobs:
   build:
