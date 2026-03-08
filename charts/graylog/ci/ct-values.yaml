@@ -1,0 +1,34 @@
+# CI test values for chart-testing (ct install).
+# These override defaults to reduce resource usage in GitHub Actions runners.
+tags:
+  # Both subcharts are pre-installed by the workflow before ct install runs,
+  # so they are fully ready when Graylog starts.
+  install-mongodb: false
+  install-opensearch: false
+
+graylog:
+  # kind's RuntimeDefault seccomp profile blocks clone() syscalls needed by the JVM,
+  # causing pthread_create EPERM even for core VM threads. Unconfined allows all syscalls.
+  securityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: false
+    runAsNonRoot: true
+    seccompProfile:
+      type: Unconfined
+    runAsUser: 1100
+    runAsGroup: 1100
+  javaOpts: "-Dlog4j2.formatMsgNoLookups=true -Djdk.tls.acknowledgeCloseNotify=true -XX:+UnlockExperimentalVMOptions -XX:-OmitStackTraceInFastThrow -server"
+  heapSize: "512m"
+  startupProbe:
+    periodSeconds: 60
+    failureThreshold: 30
+    successThreshold: 1
+    timeoutSeconds: 5
+  mongodb:
+    # Point to the MongoDB instance pre-provisioned by the workflow (fixed name: ci-mongodb).
+    # The community operator creates service <name>-svc and replicaset named <name>.
+    uri: "mongodb://graylog:graylog@ci-mongodb-0.ci-mongodb-svc.ct.svc.cluster.local:27017/graylog?replicaSet=ci-mongodb&authSource=graylog"
+
+mongodb:
+  community:
+    install: false
