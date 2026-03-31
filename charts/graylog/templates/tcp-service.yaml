@@ -35,7 +35,10 @@ spec:
   {{- if .Values.graylog.input.tcp.service.clusterIP }}
   clusterIP:  {{ .Values.graylog.input.tcp.service.clusterIP }}
   {{- end }}
-{{- end }}  
+{{- end }}
+  {{- with .Values.graylog.input.tcp.service.trafficDistribution}}
+  trafficDistribution: {{ . }}
+  {{- end }}
   selector:
     app.kubernetes.io/name: {{ template "graylog.name" . }}
     app.kubernetes.io/instance: "{{ .Release.Name }}"
