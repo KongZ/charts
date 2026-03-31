@@ -1,0 +1,41 @@
+{{- if .Values.graylog.gatewayApi.enabled }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  annotations:
+  {{- range $key, $value := .Values.graylog.gatewayApi.annotations }}
+    {{ $key }}: {{ $value | quote }}
+  {{- end }}
+  labels:
+{{ include "graylog.metadataLabels" . | indent 4 }}
+    app.kubernetes.io/component: "web"
+{{- if .Values.graylog.gatewayApi.labels }}
+{{ toYaml .Values.graylog.gatewayApi.labels | indent 4 }}
+{{- end }}
+  name: {{ template "graylog.fullname" . }}-web
+spec:
+  parentRefs:
+  {{- range .Values.graylog.gatewayApi.parentRefs }}
+    - name: {{ .name }}
+      {{- if .namespace }}
+      namespace: {{ .namespace }}
+      {{- end }}
+      {{- if .sectionName }}
+      sectionName: {{ .sectionName }}
+      {{- end }}
+  {{- end }}
+  {{- if .Values.graylog.gatewayApi.hosts }}
+  hostnames:
+  {{- range .Values.graylog.gatewayApi.hosts }}
+    - {{ . | quote }}
+  {{- end }}
+  {{- end }}
+  rules:
+    - matches:
+        - path:
+            type: {{ default "PathPrefix" .Values.graylog.gatewayApi.pathType }}
+            value: {{ default "/" .Values.graylog.gatewayApi.path }}
+      backendRefs:
+        - name: {{ template "graylog.fullname" . }}-web
+          port: {{ default 9000 .Values.graylog.service.port }}
+{{- end }}

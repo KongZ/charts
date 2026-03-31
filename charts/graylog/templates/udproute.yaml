@@ -1,0 +1,28 @@
+{{- if and .Values.graylog.input.udp .Values.graylog.input.udp.gatewayApi }}
+{{- if .Values.graylog.input.udp.gatewayApi.enabled }}
+{{- range .Values.graylog.input.udp.ports }}
+{{- $port := . }}
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: UDPRoute
+metadata:
+  labels:
+{{ include "graylog.metadataLabels" $ | indent 4 }}
+    app.kubernetes.io/component: "UDP"
+  name: {{ template "graylog.fullname" $ }}-udp-{{ .name }}
+spec:
+  parentRefs:
+  {{- range $.Values.graylog.input.udp.gatewayApi.parentRefs }}
+    - name: {{ .name }}
+      {{- if .namespace }}
+      namespace: {{ .namespace }}
+      {{- end }}
+      sectionName: {{ default $port.name .sectionName }}
+  {{- end }}
+  rules:
+    - backendRefs:
+        - name: {{ if $.Values.graylog.input.udp.service.name }}{{ $.Values.graylog.input.udp.service.name }}{{ else }}{{ template "graylog.fullname" $ }}-udp{{ end }}
+          port: {{ .port }}
+{{- end }}
+{{- end }}
+{{- end }}
