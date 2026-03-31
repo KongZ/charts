@@ -276,6 +276,7 @@ graylog:
     #     name: your-tcp-service-name
     #     type: LoadBalancer
     #     loadBalancerIP:
+    #     trafficDistribution:
     #   ports:
     #     - name: gelf
     #       port: 12222
@@ -283,6 +284,7 @@ graylog:
     #   service:
     #     name: your-udp-service-name
     #     type: ClusterIP
+    #     trafficDistribution:
     #   ports:
     #     - name: syslog
     #       port: 12222
