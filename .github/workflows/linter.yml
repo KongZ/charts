@@ -34,6 +34,7 @@ jobs:
           VALIDATE_ALL_CODEBASE: false
           VALIDATE_YAML: false
           VALIDATE_KUBERNETES_KUBEVAL: false
+          VALIDATE_KUBERNETES_KUBECONFORM: false
           VALIDATE_GITLEAKS: false
           VALIDATE_NATURAL_LANGUAGE: false
           VALIDATE_CHECKOV: false
