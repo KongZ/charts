@@ -1,5 +1,11 @@
 {{- if and .Values.graylog.input.tcp .Values.graylog.input.tcp.gatewayApi }}
 {{- if .Values.graylog.input.tcp.gatewayApi.enabled }}
+{{- if not (.Capabilities.APIVersions.Has "gateway.networking.k8s.io/v1alpha2/TCPRoute") }}
+  {{- fail "graylog.input.tcp.gatewayApi.enabled is true but the Gateway API CRD (gateway.networking.k8s.io/v1alpha2/TCPRoute) is not installed on this cluster. Install the Gateway API experimental CRDs first or set graylog.input.tcp.gatewayApi.enabled=false." }}
+{{- end }}
+{{- if empty .Values.graylog.input.tcp.gatewayApi.parentRefs }}
+  {{- fail "graylog.input.tcp.gatewayApi.enabled is true but graylog.input.tcp.gatewayApi.parentRefs is empty. Specify at least one parentRef pointing to a Gateway resource." }}
+{{- end }}
 {{- range .Values.graylog.input.tcp.ports }}
 {{- $port := . }}
 ---
