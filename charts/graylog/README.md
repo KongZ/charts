@@ -492,8 +492,8 @@ Note: All uncommitted logs will be permanently DELETED when this value is true
 
 ---
 
-If you are encounter "Failed to decrypt values from MongoDB. 
-This means that your password_secret has been changed or there are some nodes in your cluster that are using a different password_secret to the one configured on this node. 
+If you are encounter "Failed to decrypt values from MongoDB.
+This means that your password_secret has been changed or there are some nodes in your cluster that are using a different password_secret to the one configured on this node.
 Secrets have to be configured to the same value on every node and can't be changed afterwards.", this mean that you may use password in Secret has been changed from previous deployment.
 
 

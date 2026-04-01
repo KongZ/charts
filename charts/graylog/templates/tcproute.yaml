@@ -16,6 +16,7 @@ metadata:
 {{ include "graylog.metadataLabels" $ | indent 4 }}
     app.kubernetes.io/component: "TCP"
   name: {{ template "graylog.fullname" $ }}-tcp-{{ .name }}
+# jscpd:ignore-start
 spec:
   parentRefs:
   {{- range $.Values.graylog.input.tcp.gatewayApi.parentRefs }}
@@ -25,12 +26,11 @@ spec:
       {{- end }}
       sectionName: {{ default $port.name .sectionName }}
   {{- end }}
-  # jscpd:ignore-start
   rules:
     - backendRefs:
         - name: {{ if $.Values.graylog.input.tcp.service.name }}{{ $.Values.graylog.input.tcp.service.name }}{{ else }}{{ template "graylog.fullname" $ }}-tcp{{ end }}
           port: {{ .port }}
-  # jscpd:ignore-end
+# jscpd:ignore-end
 {{- end }}
 {{- end }}
 {{- end }}
