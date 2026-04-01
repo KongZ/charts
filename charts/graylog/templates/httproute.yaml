@@ -1,0 +1,47 @@
+{{- if .Values.graylog.gatewayApi.enabled }}
+{{- if not (.Capabilities.APIVersions.Has "gateway.networking.k8s.io/v1/HTTPRoute") }}
+  {{- fail "graylog.gatewayApi.enabled is true but the Gateway API CRD (gateway.networking.k8s.io/v1/HTTPRoute) is not installed on this cluster. Install the Gateway API CRDs first or set graylog.gatewayApi.enabled=false." }}
+{{- end }}
+{{- if empty .Values.graylog.gatewayApi.parentRefs }}
+  {{- fail "graylog.gatewayApi.enabled is true but graylog.gatewayApi.parentRefs is empty. Specify at least one parentRef pointing to a Gateway resource." }}
+{{- end }}
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  annotations:
+  {{- range $key, $value := .Values.graylog.gatewayApi.annotations }}
+    {{ $key }}: {{ $value | quote }}
+  {{- end }}
+  labels:
+{{ include "graylog.metadataLabels" . | indent 4 }}
+    app.kubernetes.io/component: "web"
+{{- if .Values.graylog.gatewayApi.labels }}
+{{ toYaml .Values.graylog.gatewayApi.labels | indent 4 }}
+{{- end }}
+  name: {{ template "graylog.fullname" . }}-web
+spec:
+  parentRefs:
+  {{- range .Values.graylog.gatewayApi.parentRefs }}
+    - name: {{ .name }}
+      {{- if .namespace }}
+      namespace: {{ .namespace }}
+      {{- end }}
+      {{- if .sectionName }}
+      sectionName: {{ .sectionName }}
+      {{- end }}
+  {{- end }}
+  {{- if .Values.graylog.gatewayApi.hosts }}
+  hostnames:
+  {{- range .Values.graylog.gatewayApi.hosts }}
+    - {{ . | quote }}
+  {{- end }}
+  {{- end }}
+  rules:
+    - matches:
+        - path:
+            type: {{ default "PathPrefix" .Values.graylog.gatewayApi.pathType }}
+            value: {{ default "/" .Values.graylog.gatewayApi.path }}
+      backendRefs:
+        - name: {{ template "graylog.fullname" . }}-web
+          port: {{ default 9000 .Values.graylog.service.port }}
+{{- end }}

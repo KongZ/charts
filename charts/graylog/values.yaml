@@ -277,6 +277,15 @@ graylog:
     #     type: LoadBalancer
     #     loadBalancerIP:
     #     trafficDistribution:
+    #   ## Kubernetes Gateway API TCPRoute (gateway.networking.k8s.io/v1alpha2)
+    #   ## Creates one TCPRoute per port entry. Requires a Gateway with matching listeners.
+    #   ## When enabled, consider using service.type: ClusterIP instead of LoadBalancer.
+    #   gatewayApi:
+    #     enabled: false
+    #     parentRefs:
+    #       - name: my-gateway
+    #         namespace: gateway-system
+    #         sectionName: gelf   # optional: overrides default (port name) for all ports
     #   ports:
     #     - name: gelf
     #       port: 12222
@@ -285,6 +294,15 @@ graylog:
     #     name: your-udp-service-name
     #     type: ClusterIP
     #     trafficDistribution:
+    #   ## Kubernetes Gateway API UDPRoute (gateway.networking.k8s.io/v1alpha2)
+    #   ## Creates one UDPRoute per port entry. Requires a Gateway with matching listeners.
+    #   ## When enabled, consider using service.type: ClusterIP instead of LoadBalancer.
+    #   gatewayApi:
+    #     enabled: false
+    #     parentRefs:
+    #       - name: my-gateway
+    #         namespace: gateway-system
+    #         sectionName: syslog   # optional: overrides default (port name) for all ports
     #   ports:
     #     - name: syslog
     #       port: 12222
@@ -367,6 +385,37 @@ graylog:
     ## Please note that tls secret should reside in istio-system namespace
     ## leave blanc for disabling TLS
     tlsSecretName: ""
+
+  gatewayApi:
+    ## If true, an HTTPRoute resource will be created for Kubernetes Gateway API
+    ##
+    enabled: false
+
+    ## HTTPRoute annotations
+    annotations: {}
+
+    ## HTTPRoute labels
+    labels: {}
+
+    ## Gateway parentRefs — reference the Gateway resource(s) this route attaches to
+    ## Must be provided if gatewayApi is enabled
+    ##
+    parentRefs: []
+    #  - name: my-gateway
+    #    namespace: gateway-system
+    #    sectionName: https   # optional: target a specific listener by name
+
+    ## Hostnames to match. Note: Graylog does not support multiple URLs.
+    ## Specify a single hostname.
+    ##
+    hosts: []
+    #  - graylog.yourdomain.com
+
+    ## Path type: PathPrefix or Exact
+    pathType: PathPrefix
+
+    ## URL path
+    path: /
 
   ## Configure resource requests and limits
   ## ref: http://kubernetes.io/docs/user-guide/compute-resources/

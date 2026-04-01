@@ -1,0 +1,36 @@
+{{- if and .Values.graylog.input.tcp .Values.graylog.input.tcp.gatewayApi }}
+{{- if .Values.graylog.input.tcp.gatewayApi.enabled }}
+{{- if not (.Capabilities.APIVersions.Has "gateway.networking.k8s.io/v1alpha2/TCPRoute") }}
+  {{- fail "graylog.input.tcp.gatewayApi.enabled is true but the Gateway API CRD (gateway.networking.k8s.io/v1alpha2/TCPRoute) is not installed on this cluster. Install the Gateway API experimental CRDs first or set graylog.input.tcp.gatewayApi.enabled=false." }}
+{{- end }}
+{{- if empty .Values.graylog.input.tcp.gatewayApi.parentRefs }}
+  {{- fail "graylog.input.tcp.gatewayApi.enabled is true but graylog.input.tcp.gatewayApi.parentRefs is empty. Specify at least one parentRef pointing to a Gateway resource." }}
+{{- end }}
+{{- range .Values.graylog.input.tcp.ports }}
+{{- $port := . }}
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TCPRoute
+metadata:
+  labels:
+{{ include "graylog.metadataLabels" $ | indent 4 }}
+    app.kubernetes.io/component: "TCP"
+  name: {{ template "graylog.fullname" $ }}-tcp-{{ .name }}
+# jscpd:ignore-start
+spec:
+  parentRefs:
+  {{- range $.Values.graylog.input.tcp.gatewayApi.parentRefs }}
+    - name: {{ .name }}
+      {{- if .namespace }}
+      namespace: {{ .namespace }}
+      {{- end }}
+      sectionName: {{ default $port.name .sectionName }}
+  {{- end }}
+  rules:
+    - backendRefs:
+        - name: {{ if $.Values.graylog.input.tcp.service.name }}{{ $.Values.graylog.input.tcp.service.name }}{{ else }}{{ template "graylog.fullname" $ }}-tcp{{ end }}
+          port: {{ .port }}
+# jscpd:ignore-end
+{{- end }}
+{{- end }}
+{{- end }}

@@ -208,7 +208,18 @@ The following table lists the configurable parameters of the Graylog chart and t
 | `graylog.ingress.extraPaths`                      | Ingress extra paths to prepend to every host configuration. Useful when configuring [custom actions with AWS ALB Ingress Controller][2].        | `[]`                              |
 | `graylog.input`                                   | Graylog Input configuration (YAML) Sees #Input section for detail                                                                               | `{}`                              |
 | `graylog.input.tcp.service.name`                  | Graylog TCP Input service name                                                                                                                  | `graylog-tcp`                     |
+| `graylog.input.tcp.gatewayApi.enabled`            | If true, a TCPRoute (gateway.networking.k8s.io/v1alpha2) is created for each TCP input port. Requires Gateway API experimental CRDs.           | `false`                           |
+| `graylog.input.tcp.gatewayApi.parentRefs`         | List of Gateway parentRefs for the TCPRoute. At least one entry is required when enabled. Each entry: `name`, optional `namespace`/`sectionName` | `[]`                              |
 | `graylog.input.udp.service.name`                  | Graylog UDP Input service name                                                                                                                  | `graylog-udp`                     |
+| `graylog.input.udp.gatewayApi.enabled`            | If true, a UDPRoute (gateway.networking.k8s.io/v1alpha2) is created for each UDP input port. Requires Gateway API experimental CRDs.           | `false`                           |
+| `graylog.input.udp.gatewayApi.parentRefs`         | List of Gateway parentRefs for the UDPRoute. At least one entry is required when enabled. Each entry: `name`, optional `namespace`/`sectionName` | `[]`                              |
+| `graylog.gatewayApi.enabled`                      | If true, an HTTPRoute (gateway.networking.k8s.io/v1) is created for the Graylog web UI. Requires Gateway API standard CRDs.                    | `false`                           |
+| `graylog.gatewayApi.annotations`                  | HTTPRoute annotations                                                                                                                           | `{}`                              |
+| `graylog.gatewayApi.labels`                       | HTTPRoute extra labels                                                                                                                          | `{}`                              |
+| `graylog.gatewayApi.parentRefs`                   | List of Gateway parentRefs for the HTTPRoute. At least one entry is required when enabled. Each entry: `name`, optional `namespace`/`sectionName` | `[]`                              |
+| `graylog.gatewayApi.hosts`                        | Hostnames to match. Note: Graylog does not support multiple URLs — specify a single hostname.                                                   | `[]`                              |
+| `graylog.gatewayApi.pathType`                     | HTTPRoute path match type (`PathPrefix` or `Exact`)                                                                                             | `PathPrefix`                      |
+| `graylog.gatewayApi.path`                         | HTTPRoute path                                                                                                                                  | `/`                               |
 | `graylog.metrics.enabled`                         | If true, add Prometheus annotations to pods                                                                                                     | `false`                           |
 | `graylog.metrics.serviceMonitor.enabled`          | If true, a ServiceMonitor resource for the prometheus-operator is created                                                                       | `false`                           |
 | `graylog.metrics.serviceMonitor.additionalLabels` | ServiceMonitor additional Labels                                                                                                                | `false`                           |
@@ -336,6 +347,82 @@ Note: Name must be in **IANA_SVC_NAME** format - at most 15 characters, matching
 
 Note: The port list should be sorted by port number.
 
+## Gateway API
+
+The chart supports [Kubernetes Gateway API](https://gateway-api.sigs.k8s.io/) as an alternative to `Ingress` and `LoadBalancer` services.
+
+| Resource | API version | Controls |
+|---|---|---|
+| `HTTPRoute` | `gateway.networking.k8s.io/v1` (standard, GA) | Graylog web UI (port 9000) |
+| `TCPRoute` | `gateway.networking.k8s.io/v1alpha2` (experimental) | TCP inputs (GELF, Beats, etc.) |
+| `UDPRoute` | `gateway.networking.k8s.io/v1alpha2` (experimental) | UDP inputs (syslog, etc.) |
+
+The standard CRDs must be installed for HTTPRoute; the experimental CRDs are additionally required for TCPRoute/UDPRoute. The chart will fail with a clear error message if the relevant CRDs are missing when a route is enabled.
+
+### HTTPRoute (web UI)
+
+```yaml
+graylog:
+  gatewayApi:
+    enabled: true
+    parentRefs:
+      - name: my-gateway
+        namespace: gateway-system
+        sectionName: https   # optional: target a specific listener
+    hosts:
+      - graylog.yourdomain.com
+    pathType: PathPrefix
+    path: /
+```
+
+TLS is handled at the `Gateway` listener level, not in the HTTPRoute.
+
+### TCPRoute / UDPRoute (log inputs)
+
+When using Gateway API for inputs, set the input service type to `ClusterIP` — the Gateway handles external exposure instead of a `LoadBalancer`.
+
+One `TCPRoute` (or `UDPRoute`) is created **per port**. The `sectionName` in `parentRefs` defaults to the port's `name`, so Gateway listeners should be named to match.
+
+```yaml
+graylog:
+  input:
+    tcp:
+      service:
+        type: ClusterIP
+      gatewayApi:
+        enabled: true
+        parentRefs:
+          - name: my-gateway
+            namespace: gateway-system
+            # sectionName defaults to port name ("gelf")
+      ports:
+        - name: gelf
+          port: 12222
+    udp:
+      service:
+        type: ClusterIP
+      gatewayApi:
+        enabled: true
+        parentRefs:
+          - name: my-gateway
+            namespace: gateway-system
+      ports:
+        - name: syslog
+          port: 5410
+```
+
+The corresponding Gateway listeners (managed separately from this chart):
+
+```yaml
+listeners:
+  - name: gelf      # matches sectionName default for the "gelf" port
+    port: 12222
+    protocol: TCP
+  - name: syslog    # matches sectionName default for the "syslog" port
+    port: 5410
+    protocol: UDP
+```
+
 ## TLS
 
 To enable TLS on input in Graylog, you need to specify the server private key and certificate. You can add them in `graylog.serverFiles` value. For example
@@ -405,8 +492,8 @@ Note: All uncommitted logs will be permanently DELETED when this value is true
 
 ---
 
-If you are encounter "Failed to decrypt values from MongoDB. 
-This means that your password_secret has been changed or there are some nodes in your cluster that are using a different password_secret to the one configured on this node. 
+If you are encounter "Failed to decrypt values from MongoDB.
+This means that your password_secret has been changed or there are some nodes in your cluster that are using a different password_secret to the one configured on this node.
 Secrets have to be configured to the same value on every node and can't be changed afterwards.", this mean that you may use password in Secret has been changed from previous deployment.
 
 

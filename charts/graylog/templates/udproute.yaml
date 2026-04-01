@@ -1,0 +1,36 @@
+{{- if and .Values.graylog.input.udp .Values.graylog.input.udp.gatewayApi }}
+{{- if .Values.graylog.input.udp.gatewayApi.enabled }}
+{{- if not (.Capabilities.APIVersions.Has "gateway.networking.k8s.io/v1alpha2/UDPRoute") }}
+  {{- fail "graylog.input.udp.gatewayApi.enabled is true but the Gateway API CRD (gateway.networking.k8s.io/v1alpha2/UDPRoute) is not installed on this cluster. Install the Gateway API experimental CRDs first or set graylog.input.udp.gatewayApi.enabled=false." }}
+{{- end }}
+{{- if empty .Values.graylog.input.udp.gatewayApi.parentRefs }}
+  {{- fail "graylog.input.udp.gatewayApi.enabled is true but graylog.input.udp.gatewayApi.parentRefs is empty. Specify at least one parentRef pointing to a Gateway resource." }}
+{{- end }}
+{{- range .Values.graylog.input.udp.ports }}
+{{- $port := . }}
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: UDPRoute
+metadata:
+  labels:
+{{ include "graylog.metadataLabels" $ | indent 4 }}
+    app.kubernetes.io/component: "UDP"
+  name: {{ template "graylog.fullname" $ }}-udp-{{ .name }}
+# jscpd:ignore-start
+spec:
+  parentRefs:
+  {{- range $.Values.graylog.input.udp.gatewayApi.parentRefs }}
+    - name: {{ .name }}
+      {{- if .namespace }}
+      namespace: {{ .namespace }}
+      {{- end }}
+      sectionName: {{ default $port.name .sectionName }}
+  {{- end }}
+  rules:
+    - backendRefs:
+        - name: {{ if $.Values.graylog.input.udp.service.name }}{{ $.Values.graylog.input.udp.service.name }}{{ else }}{{ template "graylog.fullname" $ }}-udp{{ end }}
+          port: {{ .port }}
+# jscpd:ignore-end
+{{- end }}
+{{- end }}
+{{- end }}
