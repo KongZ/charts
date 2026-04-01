@@ -39,5 +39,6 @@ jobs:
           VALIDATE_NATURAL_LANGUAGE: false
           VALIDATE_CHECKOV: false
           VALIDATE_YAML_PRETTIER: false
+          VALIDATE_MARKDOWN_PRETTIER: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
