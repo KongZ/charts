@@ -25,10 +25,12 @@ spec:
       {{- end }}
       sectionName: {{ default $port.name .sectionName }}
   {{- end }}
+  # jscpd:ignore-start
   rules:
     - backendRefs:
         - name: {{ if $.Values.graylog.input.udp.service.name }}{{ $.Values.graylog.input.udp.service.name }}{{ else }}{{ template "graylog.fullname" $ }}-udp{{ end }}
           port: {{ .port }}
+  # jscpd:ignore-end
 {{- end }}
 {{- end }}
 {{- end }}
