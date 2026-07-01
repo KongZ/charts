@@ -193,7 +193,7 @@ spec:
 {{ toYaml .Values.graylog.resources | indent 12 }}
           startupProbe:
             httpGet:
-              path: /api/system/lbstatus
+              path: /api
               port: 9000
             {{- if .Values.graylog.tls.enabled }}
               scheme: HTTPS
@@ -204,7 +204,7 @@ spec:
             timeoutSeconds: {{ .Values.graylog.startupProbe.timeoutSeconds }}
           livenessProbe:
             httpGet:
-              path: /api/system/lbstatus
+              path: /api
               port: 9000
             {{- if .Values.graylog.tls.enabled }}
               scheme: HTTPS
