@@ -19,6 +19,9 @@ spec:
       roles:
         - name: readWrite
           db: graylog
+        # Graylog 7.2 converts cluster_events to a capped collection via collMod/convertToCapped.
+        - name: dbAdmin
+          db: graylog
         - name: clusterMonitor
           db: admin
       scramCredentialsSecretName: graylog

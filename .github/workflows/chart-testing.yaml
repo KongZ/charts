@@ -100,6 +100,8 @@ jobs:
                 roles:
                   - name: readWrite
                     db: graylog
+                  - name: dbAdmin
+                    db: graylog
                   - name: clusterMonitor
                     db: admin
                 scramCredentialsSecretName: ci-mongodb-scram
