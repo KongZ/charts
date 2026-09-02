@@ -62,6 +62,8 @@ spec:
       roles:
       - db: graylog
         name: readWrite
+      - db: graylog
+        name: dbAdmin
       - db: admin
         name: clusterMonitor
       scramCredentialsSecretName: graylog
@@ -77,6 +79,35 @@ You can specify how Graylog picks the MongoDB connection in this order:
 * If `graylog.mongodb.uri` is specified, it will use this value.
 * If `graylog.mongodb.uriSecretKey` is specified, it will use the secret `graylog.mongodb.uriSecretName`.
 * If `mongodb.community.install` is `true` and neither `graylog.mongodb.uri` nor `graylog.mongodb.uriSecretKey` is used, it will use the secret generated from the MongoDB Operator.
+
+#### MongoDB roles for an external database
+
+If you bring your own MongoDB (`tags.install-mongodb=false`), the Graylog user needs more than `readWrite`. Grant these roles on the existing user (replace `grayloguser` if your username differs):
+
+| Role | Database | Why |
+| --- | --- | --- |
+| `readWrite` | `graylog` | Read and write Graylog application data |
+| `dbAdmin` | `graylog` | Required from Graylog 7.2: startup runs `collMod` / `convertToCapped` on `cluster_events`. Without this role the pod fails with `Unauthorized` on `collMod` |
+| `clusterMonitor` | `admin` | Cluster configuration and node stats in the Graylog UI |
+
+```javascript
+use graylog
+db.grantRolesToUser("grayloguser", [
+  { role: "readWrite", db: "graylog" },
+  { role: "dbAdmin", db: "graylog" },
+  { role: "clusterMonitor", db: "admin" }
+])
+```
+
+If the user already has `readWrite`, you can add the missing roles one at a time:
+
+```javascript
+use graylog
+db.grantRolesToUser("grayloguser", [{ role: "clusterMonitor", db: "admin" }])
+db.grantRolesToUser("grayloguser", [{ role: "dbAdmin", db: "graylog" }])
+```
+
+Restart Graylog pods after changing roles.
 
 ### To install Opensearch, run
 
