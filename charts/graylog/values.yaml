@@ -241,6 +241,7 @@ graylog:
   ## Ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/#define-startup-probes
   ##
   startupProbe:
+    initialDelaySeconds: 60
     periodSeconds: 60
     failureThreshold: 3
     successThreshold: 1
