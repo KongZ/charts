@@ -1,8 +1,8 @@
 apiVersion: v2
 name: graylog
 home: https://www.graylog.org
-version: 3.0.31
-appVersion: 7.2.0-beta.1-1
+version: 3.0.32
+appVersion: 7.2.0-beta.2-1
 description: Graylog is the centralized log management solution built to open
   standards for capturing, storing, and enabling real-time analysis of terabytes
   of machine data.
@@ -29,6 +29,6 @@ dependencies:
   - tags:
       - install-opensearch
     name: opensearch
-    version: 2.37.0
+    version: 2.38.0
     repository: https://opensearch-project.github.io/helm-charts
 type: application
